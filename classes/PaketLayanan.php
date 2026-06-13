@@ -1,6 +1,6 @@
 <?php
 
-class PaketKremasi {
+class PaketLayanan {
     public function getAll() {}
     public function create() {}
     public function update() {}
