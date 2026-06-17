@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../../../config/Database.php';
 require_once __DIR__ . '/../../../classes/KategoriPaket.php';
 
 $kategoriModel = new KategoriPaket();
