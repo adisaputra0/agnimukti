@@ -51,12 +51,21 @@
                 Pengguna
             </a>
 
+            <a href="?page=categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'categories'
+                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
+                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
+            ">
+                <i class="ti ti-package text-lg" aria-hidden="true"></i>
+                Kategori Paket
+            </a>
+
             <a href="?page=services" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
             <?= $currentPage == 'services'
                 ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
                 : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
             ">
-                <i class="ti ti-package text-lg" aria-hidden="true"></i>
+                <i class="ti ti-packages text-lg" aria-hidden="true"></i>
                 Paket Layanan
             </a>
 
@@ -120,6 +129,7 @@
                 'dashboard' => 'pages/dashboard.php',
                 'users'     => 'pages/users.php',
                 'services'  => 'pages/services.php',
+                'categories'  => 'pages/categories.php',
                 'registration'  => 'pages/registration.php',
                 'payment'  => 'pages/payment.php',
                 'settings'  => 'pages/settings.php'
