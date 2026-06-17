@@ -125,7 +125,7 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
         <div class="bg-white rounded-xl border border-[#BFC3B1]">
             <div class="px-5 py-4 border-b border-[#D8D2C6] flex items-center justify-between">
                 <h2 class="text-sm font-semibold text-[#2B221D]">Pendaftaran Terbaru</h2>
-                <a href="?page=pendaftaran" class="text-xs text-[#B86E4B] hover:underline">Lihat semua</a>
+                <a href="?page=registration" class="text-xs text-[#B86E4B] hover:underline">Lihat semua</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
@@ -171,7 +171,7 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
         <div class="bg-white rounded-xl border border-[#BFC3B1]">
             <div class="px-5 py-4 border-b border-[#D8D2C6] flex items-center justify-between">
                 <h2 class="text-sm font-semibold text-[#2B221D]">Status Pembayaran</h2>
-                <a href="?page=pembayaran" class="text-xs text-[#B86E4B] hover:underline">Lihat semua</a>
+                <a href="?page=payment" class="text-xs text-[#B86E4B] hover:underline">Lihat semua</a>
             </div>
 
             <div class="overflow-x-auto">
@@ -180,7 +180,6 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
                         <tr class="bg-[#F5F1EC] text-left text-xs text-[#5B4636] uppercase tracking-wide border-b border-[#D8D2C6]">
                             <th class="px-5 py-3 font-medium">Kode Pendaftaran</th>
                             <th class="px-5 py-3 font-medium">Total</th>
-                            <th class="px-5 py-3 font-medium">Metode</th>
                             <th class="px-5 py-3 font-medium">Status</th>
                         </tr>
                     </thead>
@@ -206,7 +205,6 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
                                 ?>
                             </td>
                             <td class="px-5 py-3 text-[#2B221D] font-semibold">Rp <?= number_format($pembayaran['total_bayar'], 0, ',', '.'); ?></td>
-                            <td class="px-5 py-3 text-[#5B4636] text-xs"><?= htmlspecialchars($pembayaran['metode_pembayaran'] ?? 'Tunai'); ?></td>
                             <td class="px-5 py-3">
                                 <?php 
                                 $payStatusClass = "bg-[#E8DDD0] text-[#B86E4B]";
