@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     echo "<script>
-    window.location='?page=pembayaran';
+    window.location='?page=payment';
     </script>";
     exit;
 }
@@ -69,9 +69,6 @@ $transaksiTertundaCount = 0;
 foreach ($allData as $p) {
     if ($p['status_pembayaran'] === 'Lunas') {
         $totalPendapatanLunas += (int)$p['total_bayar'];
-    } elseif ($p['status_pembayaran'] === 'Menunggu Verifikasi') {
-        $perluVerifikasiDana += (int)$p['total_bayar'];
-        $transaksiTertundaCount++;
     } elseif ($p['status_pembayaran'] === 'Belum Bayar') {
         $belumBayarDana += (int)$p['total_bayar'];
     }
@@ -216,12 +213,7 @@ foreach ($allData as $p) {
                             Rp <?= number_format($pembayaran['total_bayar'], 0, ',', '.') ?>
                         </td>
                         <td class="px-5 py-4">
-                            <?php if ($pembayaran['status_pembayaran'] === 'Menunggu Verifikasi'): ?>
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-[#B86E4B]/10 text-[#B86E4B] border border-[#B86E4B]/20">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#B86E4B]"></span>
-                                    Menunggu Verifikasi
-                                </span>
-                            <?php elseif ($pembayaran['status_pembayaran'] === 'Lunas'): ?>
+                            <?php if ($pembayaran['status_pembayaran'] === 'Lunas'): ?>
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-[#BFC3B1]/30 text-[#5B4636] border border-[#BFC3B1]">
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#5B4636]"></span>
                                     Lunas
@@ -319,7 +311,7 @@ foreach ($allData as $p) {
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Metode Pembayaran</label>
                     <select name="metode_pembayaran" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
-                        <option value="Transfer Bank">Transfer Bank</option>
+                        <option value="Transfer">Transfer</option>
                         <option value="QRIS">QRIS</option>
                         <option value="Tunai">Tunai</option>
                     </select>
@@ -327,7 +319,6 @@ foreach ($allData as $p) {
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Status</label>
                     <select name="status_pembayaran" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
-                        <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
                         <option value="Lunas">Lunas</option>
                         <option value="Belum Bayar">Belum Bayar</option>
                     </select>
@@ -382,9 +373,8 @@ foreach ($allData as $p) {
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Aksi Tindakan Admin</label>
                     <select name="status_pembayaran" id="md-status-pembayaran" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
-                        <option value="Menunggu Verifikasi">Tetap Tangguhkan (Menunggu)</option>
                         <option value="Lunas">Verifikasi & Sahkan Berkas (Lunas)</option>
-                        <option value="Belum Bayar">Tolak Transaksi / Batalkan</option>
+                        <option value="Belum Bayar">Belum Bayar</option>
                     </select>
                 </div>
 

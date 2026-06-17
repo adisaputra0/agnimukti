@@ -2,17 +2,23 @@
 require_once __DIR__ . '/../../../classes/Users.php';
 require_once __DIR__ . '/../../../classes/PaketLayanan.php';
 require_once __DIR__ . '/../../../classes/Pendaftaran.php';
+require_once __DIR__ . '/../../../classes/Pembayaran.php';
 
 // Buat instance dari masing-masing model
 $pendaftaranModel = new Pendaftaran();
 $userModel = new Users();
 $paketModel = new PaketLayanan();
+$pembayaranModel = new Pembayaran();
+
+// Ambil data pendukung awal untuk kebutuhan pencarian nominal paket
+$listPaket = $paketModel->getAll();
+$listUser = $userModel->getAll();
 
 // ==========================================
 // HANDLING CRUD OPERATIONS
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1. Tambah Pendaftaran (Create)
+    // 1. Tambah Pendaftaran (Create) + Otomatis Tambah Pembayaran
     if (isset($_POST['action']) && $_POST['action'] === 'create') {
         $kode_pendaftaran = $pendaftaranModel->generateKode(); // Generate otomatis agar konsisten
         $id_user = $_POST['id_user'];
@@ -23,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tanggal_daftar = $_POST['tanggal_daftar'];
         $catatan = $_POST['catatan'];
 
+        // Eksekusi Simpan Pendaftaran
         $pendaftaranModel->create(
             $kode_pendaftaran,
             $id_user,
@@ -33,8 +40,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tanggal_daftar,
             $catatan
         );
+
+        // Cari nominal harga paket berdasarkan id_paket yang dipilih user
+        $total_bayar = 0;
+        foreach ($listPaket as $paket) {
+            if ($paket['id_paket'] == $id_paket) {
+                $total_bayar = $paket['harga'];
+                break;
+            }
+        }
+
+        // Ambil kembali riwayat pendaftaran terbaru untuk mendapatkan id_pendaftaran yang barusan dibuat
+        $riwayatTerbaru = $pendaftaranModel->getAll();
+        $id_pendaftaran_baru = null;
+        foreach ($riwayatTerbaru as $row) {
+            if ($row['kode_pendaftaran'] === $kode_pendaftaran) {
+                $id_pendaftaran_baru = $row['id_pendaftaran'];
+                break;
+            }
+        }
+
+        // Jika id_pendaftaran ditemukan, langsung buat data pembayaran default
+        if ($id_pendaftaran_baru) {
+            $tanggal_bayar = date('Y-m-d H:i:s');
+            $metode_pembayaran = 'Tunai'; // Default value
+            $status_pembayaran = 'Belum Bayar'; // Default value
+
+            $pembayaranModel->create(
+                $id_pendaftaran_baru,
+                $tanggal_bayar,
+                $total_bayar,
+                $metode_pembayaran,
+                $status_pembayaran
+            );
+        }
+
         echo "<script>
-        window.location='?page=users';
+        window.location='?page=registration';
         </script>";
         exit;
     }
@@ -62,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
         }
         echo "<script>
-        window.location='?page=users';
+        window.location='?page=registration';
         </script>";
         exit;
     }
@@ -72,18 +114,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_pendaftaran = $_POST['id_pendaftaran'];
         $pendaftaranModel->delete($id_pendaftaran);
         echo "<script>
-        window.location='?page=users';
+        window.location='?page=registration';
         </script>";
         exit;
     }
 }
 
-// Ambil semua data riwayat pendaftaran
+// Ambil semua data riwayat pendaftaran untuk ditampilkan di tabel view
 $riwayatPendaftaran = $pendaftaranModel->getAll();
-
-// Ambil data pendukung untuk dropdown form input baru
-$listUser = $userModel->getAll();
-$listPaket = $paketModel->getAll();
 
 // Menghitung status statistik secara dinamis dari database
 $totalDaftar = count($riwayatPendaftaran);

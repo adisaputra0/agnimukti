@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['fasilitas']
             );
             echo "<script>
-            window.location='?page=users';
+            window.location='?page=services';
             </script>";
             exit;
         } elseif ($_POST['action'] === 'update') {
@@ -35,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['fasilitas']
             );
             echo "<script>
-            window.location='?page=users';
+            window.location='?page=services';
             </script>";
             exit;
         } elseif ($_POST['action'] === 'delete') {
             $paketModel->delete($_POST['id_paket']);
             echo "<script>
-            window.location='?page=users';
+            window.location='?page=services';
             </script>";
             exit;
         }

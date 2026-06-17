@@ -103,7 +103,6 @@ CREATE TABLE pembayaran (
 
     status_pembayaran ENUM(
         'Belum Bayar',
-        'Menunggu Verifikasi',
         'Lunas'
     ) DEFAULT 'Belum Bayar',
 
@@ -274,7 +273,7 @@ VALUES
     '2026-06-02',
     3000000,
     'Transfer',
-    'Menunggu Verifikasi'
+    'Belum Bayar'
 ),
 (
     2,
