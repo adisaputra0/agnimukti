@@ -22,7 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['harga'],
                 $_POST['fasilitas']
             );
-            header("Location: " . $_SERVER['PHP_SELF']);
+            echo "<script>
+            window.location='?page=users';
+            </script>";
             exit;
         } elseif ($_POST['action'] === 'update') {
             $paketModel->update(
@@ -32,11 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['harga'],
                 $_POST['fasilitas']
             );
-            header("Location: " . $_SERVER['PHP_SELF']);
+            echo "<script>
+            window.location='?page=users';
+            </script>";
             exit;
         } elseif ($_POST['action'] === 'delete') {
             $paketModel->delete($_POST['id_paket']);
-            header("Location: " . $_SERVER['PHP_SELF']);
+            echo "<script>
+            window.location='?page=users';
+            </script>";
             exit;
         }
     }
