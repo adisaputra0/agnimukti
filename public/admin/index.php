@@ -19,7 +19,8 @@
         <div class="px-6 py-5 border-b border-[#BFC3B1]">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-lg bg-[#BFC3B1] flex items-center justify-center">
-                    <i class="ti ti-flame text-[#B86E4B] text-xl" aria-hidden="true"></i>
+                    <!-- <i class="ti ti-flame text-[#B86E4B] text-xl" aria-hidden="true"></i> -->
+                    <img src="../assets/logo.png" alt="" class="w-full h-full">
                 </div>
                 <div>
                     <p class="text-sm font-semibold text-[#2B221D] leading-tight">Agnimukti</p>
