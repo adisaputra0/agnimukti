@@ -38,14 +38,9 @@ if ($statusFilter !== 'semua') {
             Lunas
         </a>
         
-        <a href="?page=pembayaran&status=pending" 
-           class="px-3 py-1.5 rounded-lg border font-medium transition-all <?= $statusFilter === 'pending' ? 'bg-[#2B221D] text-white border-[#2B221D]' : 'bg-white text-[#5B4636] border-[#BFC3B1] hover:bg-gray-50' ?>">
-            Pending
-        </a>
-        
-        <a href="?page=pembayaran&status=gagal" 
-           class="px-3 py-1.5 rounded-lg border font-medium transition-all <?= $statusFilter === 'gagal' ? 'bg-[#2B221D] text-white border-[#2B221D]' : 'bg-white text-[#5B4636] border-[#BFC3B1] hover:bg-gray-50' ?>">
-            Gagal
+        <a href="?page=pembayaran&status=Belum Bayar" 
+           class="px-3 py-1.5 rounded-lg border font-medium transition-all <?= $statusFilter === 'belum bayar' ? 'bg-[#2B221D] text-white border-[#2B221D]' : 'bg-white text-[#5B4636] border-[#BFC3B1] hover:bg-gray-50' ?>">
+            Belum Bayar
         </a>
     </div>
 
@@ -96,8 +91,6 @@ if ($statusFilter !== 'semua') {
                                         // Mapping style berkas kalem
                                         if ($statusBayar === 'lunas') {
                                             $badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
-                                        } elseif ($statusBayar === 'pending') {
-                                            $badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
                                         } else {
                                             $badgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
                                         }
