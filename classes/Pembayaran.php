@@ -159,4 +159,36 @@ class Pembayaran
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Ringkasan laporan pembayaran
+    public function getReportSummary()
+    {
+        $sql = "
+            SELECT
+                COUNT(*) AS total_transaksi,
+
+                SUM(
+                    CASE
+                        WHEN status_pembayaran = 'Lunas'
+                        THEN total_bayar
+                        ELSE 0
+                    END
+                ) AS total_lunas,
+
+                SUM(
+                    CASE
+                        WHEN status_pembayaran = 'Belum Bayar'
+                        THEN total_bayar
+                        ELSE 0
+                    END
+                ) AS total_belum_bayar
+
+            FROM pembayaran
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

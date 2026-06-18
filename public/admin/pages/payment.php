@@ -155,10 +155,12 @@ foreach ($allData as $p) {
                     <i class="ti ti-plus text-base" aria-hidden="true"></i>
                     Tambah Data
                 </button>
-                <button class="flex items-center gap-1.5 px-3 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] hover:text-[#2B221D] text-sm rounded-lg transition-colors">
-                    <i class="ti ti-printer text-base" aria-hidden="true"></i>
+                <a href="pages/print-payment.php"
+                target="_blank"
+                class="flex items-center gap-1.5 px-3 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] hover:text-[#2B221D] text-sm rounded-lg transition-colors">
+                    <i class="ti ti-printer text-base"></i>
                     Cetak Laporan
-                </button>
+                </a>
             </div>
         </div>
 
