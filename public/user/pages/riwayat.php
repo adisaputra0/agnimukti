@@ -59,7 +59,6 @@ if ($statusFilter !== 'semua') {
                         <th class="p-4">Paket & Rincian Biaya</th>
                         <th class="p-4">Tanggal Rencana</th>
                         <th class="p-4 w-32">Status Berkas</th>
-                        <th class="p-4 w-20 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#F5F1EC]">
@@ -102,14 +101,6 @@ if ($statusFilter !== 'semua') {
                                         <?= ucfirst($status) ?>
                                     </span>
                                 </td>
-                                
-                                <td class="p-4 text-center">
-                                    <a href="?page=riwayat-detail&id=<?= $row['id_pendaftaran'] ?>" 
-                                       class="inline-flex items-center justify-center p-2 text-[#5B4636] hover:text-[#B86E4B] bg-[#F5F1EC]/60 hover:bg-[#E8DDD0] rounded-lg transition-colors border border-[#BFC3B1]/40" 
-                                       title="Lihat Detail Berkas">
-                                        <i class="ti ti-eye text-base"></i>
-                                    </a>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -126,11 +117,6 @@ if ($statusFilter !== 'semua') {
                 </tbody>
             </table>
         </div>
-    </div>
-    
-    <div class="text-[11px] text-[#5B4636] flex items-center gap-1.5 px-2">
-        <i class="ti ti-info-circle text-sm text-[#B86E4B]"></i>
-        <span>Klik ikon mata (<i class="ti ti-eye"></i>) pada baris tabel untuk meninjau catatan dari admin serta riwayat dokumen cetak nota kontribusi.</span>
     </div>
 
 </div>
