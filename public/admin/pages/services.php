@@ -123,16 +123,6 @@ $format_harga_tertinggi = $harga_tertinggi > 0 ? 'Rp ' . number_format($harga_te
         <div class="px-5 py-4 border-b border-[#D8D2C6] flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
             <h2 class="text-sm font-semibold text-[#2B221D]">Daftar Paket Layanan</h2>
             <div class="flex items-center gap-2">
-                <div class="relative">
-                    <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm" aria-hidden="true"></i>
-                    <input
-                        type="text"
-                        id="searchLayanan"
-                        placeholder="Cari paket..."
-                        class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-48"
-                        onkeyup="searchTable()"
-                    >
-                </div>
                 <button onclick="document.getElementById('modalTambah').classList.remove('hidden')"
                     class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#B86E4B]/90 text-white text-sm rounded-lg transition-colors shadow-sm">
                     <i class="ti ti-plus text-base" aria-hidden="true"></i>

@@ -117,15 +117,6 @@ $latest        = !empty($allData) ? $allData[0] : null; // ORDER BY DESC, jadi i
 
             <div class="flex items-center gap-2">
                 <form method="GET" class="flex items-center gap-2">
-                    <div class="relative">
-                        <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm"></i>
-                        <input
-                            type="text"
-                            name="search"
-                            value="<?= htmlspecialchars($search) ?>"
-                            placeholder="Cari kategori..."
-                            class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-48">
-                    </div>
                     <button type="submit" class="hidden"></button>
                 </form>
 

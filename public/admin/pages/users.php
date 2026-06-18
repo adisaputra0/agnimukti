@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch data
 $users = $usersModel->getAll();
 
-// Filter
+// Filter & Search Logic
 $search = $_GET['search'] ?? '';
 $filterRole = $_GET['role'] ?? '';
 
@@ -112,7 +112,10 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
 
         <div class="px-5 py-4 border-b border-[#D8D2C6] flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
             <h2 class="text-sm font-semibold text-[#2B221D]">Daftar Pengguna</h2>
-            <form method="GET" class="flex items-center gap-2">
+            
+            <form method="GET" action="" class="flex items-center gap-2">
+                <input type="hidden" name="page" value="users">
+                
                 <div class="relative">
                     <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm" aria-hidden="true"></i>
                     <input
@@ -123,13 +126,23 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                         class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B] w-48 placeholder-[#5B4636]/60"
                     >
                 </div>
+                
                 <select name="role" onchange="this.form.submit()" class="text-sm border border-[#BFC3B1] rounded-lg px-3 py-1.5 bg-[#F5F1EC] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] text-[#5B4636]">
                     <option value="">Semua Role</option>
                     <option value="super_admin" <?= $filterRole === 'super_admin' ? 'selected' : '' ?>>Super Admin</option>
                     <option value="admin" <?= $filterRole === 'admin' ? 'selected' : '' ?>>Admin</option>
                     <option value="pemohon" <?= $filterRole === 'pemohon' ? 'selected' : '' ?>>Pemohon</option>
                 </select>
-                <button type="submit" class="hidden"></button>
+
+                <!-- <button type="submit" class="px-3 py-1.5 bg-[#B86E4B] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors">
+                    Cari
+                </button> -->
+
+                <?php if ($search !== '' || $filterRole !== ''): ?>
+                    <!-- <a href="?page=users" class="px-3 py-1.5 border border-[#BFC3B1] text-[#5B4636] text-sm rounded-lg hover:bg-[#F5F1EC] transition-colors">
+                        Reset
+                    </a> -->
+                <?php endif; ?>
             </form>
             
             <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
@@ -160,58 +173,67 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                 </thead>
                 <tbody class="divide-y divide-[#D8D2C6]">
 
-                    <?php foreach ($users as $i => $user): ?>
-                    <?php
-                        $initial = strtoupper(mb_substr($user['nama'], 0, 1));
-                        $isAdmin = in_array($user['role'], ['super_admin', 'admin']);
-                        $avatarBg = $isAdmin ? 'bg-[#E8DDD0]' : 'bg-[#BFC3B1]';
-                        $avatarText = $isAdmin ? 'text-[#2B221D]' : 'text-[#5B4636]';
-                        $roleLabel = match($user['role']) {
-                            'super_admin' => 'Super Admin',
-                            'admin'       => 'Admin',
-                            default       => 'Pemohon',
-                        };
-                        $roleBadgeBg   = $isAdmin ? 'bg-[#E8DDD0]' : 'bg-[#BFC3B1]';
-                        $roleBadgeText = $isAdmin ? 'text-[#B86E4B]' : 'text-[#5B4636]';
-                        $roleIcon      = $isAdmin ? 'ti-shield-check' : 'ti-user';
-                        $terdaftar = $user['created_at'] ? date('d/m/Y', strtotime($user['created_at'])) : '-';
-                    ?>
-                    <tr class="hover:bg-[#F5F1EC] transition-colors">
-                        <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= $i + 1 ?></td>
-                        <td class="px-5 py-3.5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full <?= $avatarBg ?> flex items-center justify-center <?= $avatarText ?> font-semibold text-xs shrink-0"><?= $initial ?></div>
-                                <span class="font-medium text-[#2B221D]"><?= htmlspecialchars($user['nama']) ?></span>
-                            </div>
-                        </td>
-                        <td class="px-5 py-3.5 font-mono text-xs text-[#5B4636]"><?= htmlspecialchars($user['username']) ?></td>
-                        <td class="px-5 py-3.5">
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium <?= $roleBadgeBg ?> <?= $roleBadgeText ?>">
-                                <i class="ti <?= $roleIcon ?> text-xs" aria-hidden="true"></i>
-                                <?= $roleLabel ?>
-                            </span>
-                        </td>
-                        <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['no_telepon'] ?? '-') ?></td>
-                        <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['alamat'] ?? '-') ?></td>
-                        <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= $terdaftar ?></td>
-                        <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                    <?php if (count($users) === 0): ?>
+                        <tr>
+                            <td colspan="8" class="px-5 py-8 text-center text-[#5B4636]/70">
+                                <i class="ti ti-search text-2xl block mb-1"></i>
+                                Pengguna tidak ditemukan.
+                            </td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($users as $i => $user): ?>
+                        <?php
+                            $initial = strtoupper(mb_substr($user['nama'], 0, 1));
+                            $isAdmin = in_array($user['role'], ['super_admin', 'admin']);
+                            $avatarBg = $isAdmin ? 'bg-[#E8DDD0]' : 'bg-[#BFC3B1]';
+                            $avatarText = $isAdmin ? 'text-[#2B221D]' : 'text-[#5B4636]';
+                            $roleLabel = match($user['role']) {
+                                'super_admin' => 'Super Admin',
+                                'admin'       => 'Admin',
+                                default       => 'Pemohon',
+                            };
+                            $roleBadgeBg   = $isAdmin ? 'bg-[#E8DDD0]' : 'bg-[#BFC3B1]';
+                            $roleBadgeText = $isAdmin ? 'text-[#B86E4B]' : 'text-[#5B4636]';
+                            $roleIcon      = $isAdmin ? 'ti-shield-check' : 'ti-user';
+                            $terdaftar = !empty($user['created_at']) ? date('d/m/Y', strtotime($user['created_at'])) : '-';
+                        ?>
+                        <tr class="hover:bg-[#F5F1EC] transition-colors">
+                            <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= $i + 1 ?></td>
                             <td class="px-5 py-3.5">
-                                <div class="flex items-center justify-center gap-2">
-                                    <button onclick="openEdit(<?= htmlspecialchars(json_encode($user)) ?>)" class="p-1.5 rounded-lg text-[#5B4636] hover:bg-[#E8DDD0] transition-colors" title="Edit">
-                                        <i class="ti ti-edit text-base" aria-hidden="true"></i>
-                                    </button>
-                                    <form method="POST" onsubmit="return confirm('Hapus pengguna ini?')" style="display:inline">
-                                        <input type="hidden" name="action" value="hapus">
-                                        <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
-                                        <button type="submit" class="p-1.5 rounded-lg text-[#B86E4B] hover:bg-[#B86E4B]/10 transition-colors" title="Hapus">
-                                            <i class="ti ti-trash text-base" aria-hidden="true"></i>
-                                        </button>
-                                    </form>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full <?= $avatarBg ?> flex items-center justify-center <?= $avatarText ?> font-semibold text-xs shrink-0"><?= $initial ?></div>
+                                    <span class="font-medium text-[#2B221D]"><?= htmlspecialchars($user['nama']) ?></span>
                                 </div>
                             </td>
-                        <?php endif;?>
-                    </tr>
-                    <?php endforeach; ?>
+                            <td class="px-5 py-3.5 font-mono text-xs text-[#5B4636]"><?= htmlspecialchars($user['username']) ?></td>
+                            <td class="px-5 py-3.5">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium <?= $roleBadgeBg ?> <?= $roleBadgeText ?>">
+                                    <i class="ti <?= $roleIcon ?> text-xs" aria-hidden="true"></i>
+                                    <?= $roleLabel ?>
+                                </span>
+                            </td>
+                            <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['no_telepon'] ?? '-') ?></td>
+                            <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['alamat'] ?? '-') ?></td>
+                            <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= $terdaftar ?></td>
+                            <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                                <td class="px-5 py-3.5">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <button onclick="openEdit(<?= htmlspecialchars(json_encode($user)) ?>)" class="p-1.5 rounded-lg text-[#5B4636] hover:bg-[#E8DDD0] transition-colors" title="Edit">
+                                            <i class="ti ti-edit text-base" aria-hidden="true"></i>
+                                        </button>
+                                        <form method="POST" onsubmit="return confirm('Hapus pengguna ini?')" style="display:inline">
+                                            <input type="hidden" name="action" value="hapus">
+                                            <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
+                                            <button type="submit" class="p-1.5 rounded-lg text-[#B86E4B] hover:bg-[#B86E4B]/10 transition-colors" title="Hapus">
+                                                <i class="ti ti-trash text-base" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            <?php endif;?>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                 </tbody>
             </table>
@@ -246,16 +268,16 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
             <div class="px-6 py-5 space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Nama Lengkap</label>
-                    <input type="text" name="nama" placeholder="Masukkan nama lengkap" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <input type="text" name="nama" required placeholder="Masukkan nama lengkap" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Username</label>
-                    <input type="text" name="username" placeholder="Masukkan username" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <input type="text" name="username" required placeholder="Masukkan username" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Password</label>
                     <div class="relative">
-                        <input type="password" id="passInput" name="password" placeholder="Masukkan password" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B] pr-10">
+                        <input type="password" id="passInput" name="password" required placeholder="Masukkan password" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B] pr-10">
                         <button type="button" onclick="togglePass('passInput', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#5B4636] hover:text-[#2B221D]">
                             <i class="ti ti-eye text-base" aria-hidden="true"></i>
                         </button>
@@ -263,7 +285,7 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Role</label>
-                    <select name="role" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#5B4636] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <select name="role" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#5B4636] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                         <option value="">Pilih role</option>
                         <option value="super_admin">Super Admin</option>
                         <option value="admin">Admin</option>
@@ -305,11 +327,11 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
             <div class="px-6 py-5 space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Nama Lengkap</label>
-                    <input type="text" name="nama" id="editNama" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <input type="text" name="nama" id="editNama" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Username</label>
-                    <input type="text" name="username" id="editUsername" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <input type="text" name="username" id="editUsername" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Password Baru <span class="text-[#5B4636]/60 font-normal">(kosongkan jika tidak diubah)</span></label>
@@ -322,7 +344,7 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Role</label>
-                    <select name="role" id="editRole" class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#5B4636] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
+                    <select name="role" id="editRole" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#5B4636] focus:outline-none focus:ring-2 focus:ring-[#D8D2C6] focus:border-[#B86E4B]">
                         <option value="super_admin">Super Admin</option>
                         <option value="admin">Admin</option>
                         <option value="pemohon">Pemohon</option>

@@ -120,10 +120,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Ambil semua data riwayat pendaftaran untuk ditampilkan di tabel view
+// Ambil semua data riwayat pendaftaran asli dari database
 $riwayatPendaftaran = $pendaftaranModel->getAll();
 
-// Menghitung status statistik secara dinamis dari database
+// ==========================================
+// FILTER & SEARCH LOGIC (PHP VERSION)
+// ==========================================
+$search = $_GET['search'] ?? '';
+
+if ($search !== '') {
+    $riwayatPendaftaran = array_filter($riwayatPendaftaran, function($row) use ($search) {
+        return stripos($row['kode_pendaftaran'], $search) !== false || 
+               stripos($row['nama_almarhum'], $search) !== false ||
+               stripos($row['nama_pemohon'], $search) !== false; // Ditambahkan opsi cari berdasarkan pemohon juga
+    });
+}
+
+// Menghitung status statistik secara dinamis dari hasil akhir yang sudah terfilter (atau aslinya)
 $totalDaftar = count($riwayatPendaftaran);
 $menunggu = 0;
 $diproses = 0;
@@ -204,15 +217,31 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
 
         <div class="px-5 py-4 border-b border-[#D8D2C6] flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
             <h2 class="text-sm font-semibold text-[#2B221D]">Riwayat Permohonan Pendaftaran</h2>
+            
             <div class="flex items-center gap-2">
-                <div class="relative">
-                    <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm" aria-hidden="true"></i>
-                    <input
-                        type="text"
-                        placeholder="Cari kode / almarhum..."
-                        class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-56"
-                    >
-                </div>
+                <form action="" method="GET" class="flex items-center gap-2 m-0">
+                    <input type="hidden" name="page" value="registration">
+                    
+                    <div class="relative">
+                        <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm" aria-hidden="true"></i>
+                        <input
+                            type="text"
+                            name="search"
+                            value="<?= htmlspecialchars($search); ?>"
+                            placeholder="Cari kode / almarhum..."
+                            class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-56"
+                        >
+                    </div>
+                    <!-- <button type="submit" class="px-3 py-1.5 bg-[#5B4636] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors shadow-sm font-medium">
+                        Cari
+                    </button> -->
+                    <?php if ($search !== ''): ?>
+                        <!-- <a href="?page=registration" class="px-2 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] text-sm rounded-lg transition-colors">
+                            Reset
+                        </a> -->
+                    <?php endif; ?>
+                </form>
+
                 <button onclick="document.getElementById('modalTambahPendaftaran').classList.remove('hidden')"
                     class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors shadow-sm font-medium">
                     <i class="ti ti-plus text-base" aria-hidden="true"></i>
@@ -238,7 +267,7 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
 
                     <?php if (empty($riwayatPendaftaran)): ?>
                     <tr>
-                        <td colspan="7" class="px-5 py-8 text-center text-sm text-[#5B4636]">Belum ada data pendaftaran.</td>
+                        <td colspan="7" class="px-5 py-8 text-center text-sm text-[#5B4636]">Belum ada data pendaftaran atau data tidak ditemukan.</td>
                     </tr>
                     <?php else: ?>
                     <?php $no = 1; foreach ($riwayatPendaftaran as $index => $pendaftaran): ?>
@@ -310,7 +339,7 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
         </div>
 
         <div class="px-5 py-4 border-t border-[#D8D2C6] flex items-center justify-between">
-            <p class="text-xs text-[#5B4636]">Menampilkan <?= $totalDaftar; ?> dari <?= $totalDaftar; ?> pendaftaran</p>
+            <p class="text-xs text-[#5B4636]">Menampilkan <?= $totalDaftar; ?> pendaftaran</p>
             <div class="flex items-center gap-1">
                 <button class="px-3 py-1.5 text-xs text-[#5B4636] border border-[#BFC3B1] rounded-lg hover:bg-[#F5F1EC] disabled:opacity-40" disabled>
                     <i class="ti ti-chevron-left" aria-hidden="true"></i>
@@ -338,7 +367,6 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
             </div>
 
             <div class="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
-                
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Pilih Pemohon (User)</label>
@@ -481,7 +509,6 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
 
 <script>
     function openEdit(data) {
-        // Memetakan data dari baris tabel ke dalam field modal secara dinamis
         if (data) {
             document.getElementById('editIdPendaftaran').value = data.id_pendaftaran;
             document.getElementById('editKodePendaftaran').innerText = data.kode_pendaftaran;

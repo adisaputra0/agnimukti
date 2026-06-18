@@ -56,15 +56,13 @@ $perPage       = 10;
 $totalAll      = count($allData);
 $totalFiltered = count($filtered);
 $totalPages    = max(1, ceil($totalFiltered / $perPage));
-$currentPage   = max(1, min((int)($_GET['page'] ?? 1), $totalPages));
+$currentPage   = max(1, min((int)($_GET['p_page'] ?? 1), $totalPages)); // Diubah jadi p_page agar tidak bentrok dengan routing utama page=payment
 $offset        = ($currentPage - 1) * $perPage;
 $pageData      = array_slice($filtered, $offset, $perPage);
 
 // Hitung Statistik Otomatis Berdasarkan Data Nyata
 $totalPendapatanLunas = 0;
-$perluVerifikasiDana  = 0;
 $belumBayarDana       = 0;
-$transaksiTertundaCount = 0;
 
 foreach ($allData as $p) {
     if ($p['status_pembayaran'] === 'Lunas') {
@@ -103,17 +101,6 @@ foreach ($allData as $p) {
             <p class="text-xs text-[#5B4636] mt-1">Dana bersih masuk</p>
         </div>
 
-        <!-- <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
-            <div class="flex items-center justify-between mb-4">
-                <p class="text-sm text-[#5B4636]">Perlu Verifikasi</p>
-                <div class="w-10 h-10 rounded-lg bg-[#B86E4B]/10 flex items-center justify-center border border-[#B86E4B]/30">
-                    <i class="ti ti-receipt-refund text-[#B86E4B] text-xl"></i>
-                </div>
-            </div>
-            <p class="text-2xl font-bold text-[#2B221D]">Rp <?= number_format($perluVerifikasiDana, 0, ',', '.') ?></p>
-            <p class="text-xs text-[#B86E4B] mt-1"><?= $transaksiTertundaCount ?> Transaksi tertunda</p>
-        </div> -->
-
         <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-sm text-[#5B4636]">Belum Bayar</p>
@@ -142,20 +129,29 @@ foreach ($allData as $p) {
         <div class="px-5 py-4 border-b border-[#D8D2C6] flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
             <h2 class="text-sm font-semibold text-[#2B221D]">Daftar Invoice & Pembayaran</h2>
             <div class="flex items-center gap-2">
-                <form method="GET" class="flex items-center gap-2">
-                    <div class="relative">
+                
+                <form action="" method="GET" class="flex items-center gap-2 m-0">
+                    <input type="hidden" name="page" value="payment"> <div class="relative">
                         <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[#5B4636] text-sm" aria-hidden="true"></i>
                         <input
                             type="text"
                             name="search"
                             value="<?= htmlspecialchars($search) ?>"
-                            placeholder="Cari ID / Kode Pendaftaran..."
+                            placeholder="Cari ID / Kode / Almarhum..."
                             class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-60"
                         >
                     </div>
-                    <button type="submit" class="hidden"></button>
+                    <button type="submit" class="px-3 py-1.5 bg-[#5B4636] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors font-medium">
+                        Cari
+                    </button>
+                    <?php if ($search !== ''): ?>
+                        <a href="?page=payment" class="px-2 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] text-sm rounded-lg transition-colors">
+                            Reset
+                        </a>
+                    <?php endif; ?>
                 </form>
-                <button onclick="document.getElementById('modalTambah').classList.remove('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#B86E4B]/90 text-white text-sm rounded-lg transition-colors shadow-sm">
+
+                <button onclick="document.getElementById('modalTambah').classList.remove('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#B86E4B]/90 text-white text-sm rounded-lg transition-colors shadow-sm font-medium">
                     <i class="ti ti-plus text-base" aria-hidden="true"></i>
                     Tambah Data
                 </button>
@@ -186,7 +182,7 @@ foreach ($allData as $p) {
                     <tr class="hover:bg-[#F5F1EC] transition-colors">
                         <td class="px-5 py-4 text-[#5B4636] text-xs"><?= $offset + $i + 1 ?></td>
                         <td class="px-5 py-4">
-                            <span class="font-mono text-xs font-semibold text-[#2B221D]">#INV-<?= str_pad($pembayaran['id_pembayaran'], 3, '0', STR_PAD_LEFT) ?></span>
+                            <span class="font-mono text-xs font-semibold text-[#2B221D]"><?= $pembayaran['id_pembayaran'] ?></span>
                         </td>
                         <td class="px-5 py-4">
                             <div>
@@ -195,13 +191,13 @@ foreach ($allData as $p) {
                             </div>
                         </td>
                         <td class="px-5 py-4">
-                            <?php if (stripos($pembayaran['metode_pembayaran'], 'Transfer') !== false): ?>
+                            <?php if (stripos($pembayaran['metode_pembayaran'] ?? '', 'Transfer') !== false): ?>
                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-[#E8DDD0] text-[#2B221D]">
                                     <i class="ti ti-building-bank text-xs"></i> <?= htmlspecialchars($pembayaran['metode_pembayaran']) ?>
                                 </span>
                             <?php else: ?>
                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-[#BFC3B1]/40 text-[#2B221D]">
-                                    <i class="ti ti-qrcode text-xs"></i> <?= htmlspecialchars($pembayaran['metode_pembayaran']) ?>
+                                    <i class="ti ti-qrcode text-xs"></i> <?= htmlspecialchars($pembayaran['metode_pembayaran'] ?? 'Tunai') ?>
                                 </span>
                             <?php endif; ?>
                         </td>
@@ -255,19 +251,19 @@ foreach ($allData as $p) {
         <div class="px-5 py-4 border-t border-[#D8D2C6] flex items-center justify-between">
             <p class="text-xs text-[#5B4636]">Menampilkan <?= count($pageData) ?> dari <?= $totalFiltered ?> data pembayaran</p>
             <div class="flex items-center gap-1">
-                <a href="?<?= http_build_query(array_merge($_GET, ['page' => max(1, $currentPage - 1)])) ?>"
+                <a href="?<?= http_build_query(array_merge($_GET, ['p_page' => max(1, $currentPage - 1)])) ?>"
                     class="px-3 py-1.5 text-xs text-[#5B4636] border border-[#BFC3B1] rounded-lg hover:bg-[#F5F1EC] <?= $currentPage <= 1 ? 'opacity-40 pointer-events-none' : '' ?>">
                     <i class="ti ti-chevron-left" aria-hidden="true"></i>
                 </a>
                 
                 <?php for ($p = 1; $p <= $totalPages; $p++): ?>
-                <a href="?<?= http_build_query(array_merge($_GET, ['page' => $p])) ?>"
+                <a href="?<?= http_build_query(array_merge($_GET, ['p_page' => $p])) ?>"
                     class="px-3 py-1.5 text-xs rounded-lg <?= $p === $currentPage ? 'bg-[#B86E4B] text-white' : 'text-[#5B4636] border border-[#BFC3B1] hover:bg-[#F5F1EC]' ?>">
                     <?= $p ?>
                 </a>
                 <?php endfor; ?>
 
-                <a href="?<?= http_build_query(array_merge($_GET, ['page' => min($totalPages, $currentPage + 1)])) ?>"
+                <a href="?<?= http_build_query(array_merge($_GET, ['p_page' => min($totalPages, $currentPage + 1)])) ?>"
                     class="px-3 py-1.5 text-xs text-[#5B4636] border border-[#BFC3B1] rounded-lg hover:bg-[#F5F1EC] <?= $currentPage >= $totalPages ? 'opacity-40 pointer-events-none' : '' ?>">
                     <i class="ti ti-chevron-right" aria-hidden="true"></i>
                 </a>
@@ -301,11 +297,11 @@ foreach ($allData as $p) {
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Tanggal Bayar</label>
-                    <input type="date" name="tanggal_bayar" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-white text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
+                    <input type="date" name="tanggal_bayar" value="<?= date('Y-m-d') ?>" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-white text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Total Bayar</label>
-                    <input type="number" name="total_bayar" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-white text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
+                    <input type="number" name="total_bayar" placeholder="Masukkan nominal jumlah bayar" required class="w-full px-3 py-2 text-sm border border-[#BFC3B1] rounded-lg bg-white text-[#2B221D] focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B]">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-[#5B4636] mb-1.5">Metode Pembayaran</label>
@@ -356,7 +352,7 @@ foreach ($allData as $p) {
                         <span id="md-txt-kode" class="font-mono font-bold text-[#2B221D]">-</span>
                     </div>
                     <div class="flex justify-between text-xs">
-                        <span class="text-[#5B4636]">Nama Pemohon:</span>
+                        <span class="text-[#5B4636]">Nama Almarhum:</span>
                         <span id="md-txt-nama" class="font-medium text-[#2B221D]">-</span>
                     </div>
                     <div class="flex justify-between text-xs">
@@ -380,19 +376,14 @@ foreach ($allData as $p) {
                 <div class="p-3 bg-[#B86E4B]/10 rounded-lg border border-[#B86E4B]/20 flex gap-2">
                     <i class="ti ti-info-circle text-[#B86E4B] text-lg shrink-0"></i>
                     <p class="text-[11px] text-[#5B4636] leading-relaxed">
-                        Pastikan mutasi dana bernilai sama telah masuk ke rekening / e-wallet sistem Agnini Mukti sebelum mengubah status menjadi <strong class="text-[#2B221D]">Lunas</strong>.
+                        Pastikan mutasi dana bernilai sama telah masuk ke rekening sebelum mengubah status menjadi <strong class="text-[#2B221D]">Lunas</strong>.
                     </p>
                 </div>
             </div>
 
             <div class="px-6 py-4 border-t border-[#D8D2C6] flex justify-end gap-2 bg-[#F5F1EC] rounded-b-xl">
-                <button type="button" onclick="document.getElementById('modalVerifikasi').classList.add('hidden')"
-                    class="px-4 py-2 text-sm text-[#5B4636] border border-[#BFC3B1] rounded-lg hover:bg-[#D8D2C6] transition-colors">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 text-sm bg-[#B86E4B] hover:bg-[#2B221D] text-white rounded-lg transition-colors shadow-sm font-medium">
-                    Konfirmasi Valid
-                </button>
+                <button type="button" onclick="document.getElementById('modalVerifikasi').classList.add('hidden')" class="px-4 py-2 text-sm text-[#5B4636] border border-[#BFC3B1] rounded-lg hover:bg-[#D8D2C6] transition-colors">Batal</button>
+                <button type="submit" class="px-4 py-2 text-sm bg-[#B86E4B] hover:bg-[#2B221D] text-white rounded-lg transition-colors shadow-sm font-medium">Konfirmasi Valid</button>
             </div>
         </form>
     </div>
@@ -400,7 +391,6 @@ foreach ($allData as $p) {
 
 <script>
     function openModalVerifikasi(data) {
-        // Set values ke field input form hidden untuk di POST kembali
         document.getElementById('md-id-pembayaran').value = data.id_pembayaran;
         document.getElementById('md-id-pendaftaran').value = data.id_pendaftaran;
         document.getElementById('md-tanggal-bayar').value = data.tanggal_bayar;
@@ -408,16 +398,13 @@ foreach ($allData as $p) {
         document.getElementById('md-metode-bayar').value = data.metode_pembayaran;
         document.getElementById('md-status-pembayaran').value = data.status_pembayaran;
 
-        // Set visual teks di dalam modal box detail rincian data
         document.getElementById('md-txt-kode').innerText = data.kode_pendaftaran ?? 'N/A';
         document.getElementById('md-txt-nama').innerText = data.nama_almarhum ?? 'Tidak Diketahui';
         document.getElementById('md-txt-metode').innerText = data.metode_pembayaran;
         
-        // Format Rupiah untuk visual teks modal rincian dana
         const formattedTotal = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(data.total_bayar);
         document.getElementById('md-txt-total').innerText = formattedTotal;
 
-        // Buka modal
         document.getElementById('modalVerifikasi').classList.remove('hidden');
     }
 </script>
