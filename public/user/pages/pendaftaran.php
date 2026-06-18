@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../../../classes/PaketLayanan.php';
 require_once __DIR__ . '/../../../classes/Pendaftaran.php';
+require_once __DIR__ . '/../../../classes/Pembayaran.php';
 
 $paketModel = new PaketLayanan();
 $pendaftaranModel = new Pendaftaran();
+$pembayaranModel = new Pembayaran();
 
 // Ambil semua paket untuk dropdown pilihan jika user tidak lewat halaman paket
 $dataPaket = $paketModel->getAll();
@@ -20,6 +22,88 @@ if ($idPaketTerpilih) {
             break;
         }
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $kode_pendaftaran = $pendaftaranModel->generateKode();
+
+    $id_user = $authUser['data']['id_user'];
+    $id_paket = $_POST['id_paket'];
+    $nama_almarhum = $_POST['nama_almarhum'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $tanggal_meninggal = $_POST['tanggal_meninggal'];
+    $tanggal_daftar = $_POST['tanggal_daftar'];
+    $catatan = $_POST['catatan'];
+    
+    // Ambil metode pembayaran dari POST form
+    $metode_pembayaran = $_POST['metode_pembayaran'] ?? 'Tunai';
+
+    // ==========================
+    // SIMPAN PENDAFTARAN
+    // ==========================
+    $pendaftaranModel->create(
+        $kode_pendaftaran,
+        $id_user,
+        $id_paket,
+        $nama_almarhum,
+        $tanggal_lahir,
+        $tanggal_meninggal,
+        $tanggal_daftar,
+        $catatan
+    );
+
+    // ==========================
+    // CARI HARGA PAKET
+    // ==========================
+    $total_bayar = 0;
+
+    foreach ($dataPaket as $paket) {
+        if ($paket['id_paket'] == $id_paket) {
+            $total_bayar = $paket['harga'];
+            break;
+        }
+    }
+
+    // ==========================
+    // AMBIL ID PENDAFTARAN BARU
+    // ==========================
+    $riwayatTerbaru = $pendaftaranModel->getAll();
+
+    $id_pendaftaran_baru = null;
+
+    foreach ($riwayatTerbaru as $row) {
+        if ($row['kode_pendaftaran'] === $kode_pendaftaran) {
+            $id_pendaftaran_baru = $row['id_pendaftaran'];
+            break;
+        }
+    }
+
+    // ==========================
+    // BUAT PEMBAYARAN OTOMATIS
+    // ==========================
+    if ($id_pendaftaran_baru && $total_bayar > 0) {
+
+        $tanggal_bayar = date('Y-m-d H:i:s');
+        $status_pembayaran = 'Belum Bayar';
+
+        $pembayaranModel->create(
+            $id_pendaftaran_baru,
+            $tanggal_bayar,
+            $total_bayar,
+            $metode_pembayaran, // Menggunakan variabel dinamis dari input form
+            $status_pembayaran
+        );
+    }
+
+    echo "
+    <script>
+        alert('Pendaftaran berhasil dibuat');
+        window.location='?page=riwayat';
+    </script>
+    ";
+
+    exit;
 }
 
 // Otomatis generate kode pendaftaran baru untuk kebutuhan tampilan/hidden input
@@ -42,7 +126,7 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
                 <p class="text-[11px] text-[#5B4636]">Pastikan ejaan nama sesuai dengan Akta Kematian atau KTP</p>
             </div>
 
-            <form action="proses/pendaftaran.php?action=store" method="POST" class="p-5 space-y-4">
+            <form action="" method="POST" class="p-5 space-y-4">
                 <input type="hidden" name="id_user" value="<?= $authUser['data']['id_user'] ?>">
                 <input type="hidden" name="kode_pendaftaran" value="<?= $kodeOtomatis ?>">
 
@@ -86,6 +170,15 @@ $kodeOtomatis = $pendaftaranModel->generateKode();
                     <div class="space-y-1 sm:col-span-2">
                         <label for="tanggal_daftar" class="text-xs font-medium text-[#5B4636]">Rencana Tanggal Pelaksanaan Kremasi <span class="text-rose-500">*</span></label>
                         <input type="date" name="tanggal_daftar" id="tanggal_daftar" required value="<?= date('Y-m-d') ?>" class="w-full text-xs text-[#2B221D] bg-white border border-[#BFC3B1] focus:border-[#B86E4B] focus:ring-1 focus:ring-[#B86E4B] px-3 py-2 rounded-lg outline-none transition-colors">
+                    </div>
+
+                    <div class="space-y-1 sm:col-span-2">
+                        <label for="metode_pembayaran" class="text-xs font-medium text-[#5B4636]">Metode Pembayaran <span class="text-rose-500">*</span></label>
+                        <select name="metode_pembayaran" id="metode_pembayaran" required class="w-full text-xs text-[#2B221D] bg-white border border-[#BFC3B1] focus:border-[#B86E4B] focus:ring-1 focus:ring-[#B86E4B] px-3 py-2 rounded-lg outline-none transition-colors">
+                            <option value="Tunai">Tunai</option>
+                            <option value="Transfer">Transfer</option>
+                            <option value="QRIS">QRIS</option>
+                        </select>
                     </div>
 
                     <div class="space-y-1 sm:col-span-2">
@@ -178,7 +271,7 @@ function updateRingkasanPaket(selectElement) {
     document.getElementById('container-fasilitas').innerHTML = '• ' + fasilitasFormatted;
     
     // Tampilkan panel ringkasan
-    boxKosong.add('hidden');
+    boxKosong.classList.add('hidden'); // Perbaikan: sebelumnya tertulis boxKosong.add('hidden'); yang bisa memicu error JS
     boxDetail.classList.remove('hidden');
 }
 </script>

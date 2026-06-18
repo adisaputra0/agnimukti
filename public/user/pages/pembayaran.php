@@ -124,10 +124,22 @@ if ($statusFilter !== 'semua') {
             </table>
         </div>
     </div>
-    
-    <div class="text-[11px] text-[#5B4636] flex items-center gap-1.5 px-2">
-        <i class="ti ti-shield-lock text-sm text-[#B86E4B]"></i>
-        <span>Seluruh transaksi yang berstatus <strong class="text-emerald-700">Lunas</strong> sah secara regulasi tata kelola administrasi sistem kremasi.</span>
+
+    <div class="text-[11px] text-[#5B4636] flex items-start gap-2 px-2">
+        <i class="ti ti-message-circle text-sm text-[#B86E4B] mt-0.5"></i>
+        <span>
+            Untuk melakukan pembayaran, silakan hubungi Admin terlebih dahulu melalui WhatsApp. 
+            Pembayaran dapat dilakukan melalui <strong class="text-[#B86E4B]">QRIS</strong> atau 
+            <strong class="text-[#B86E4B]">Tunai</strong>. Setelah pembayaran dikonfirmasi, status transaksi akan diperbarui oleh admin.
+        </span>
+    </div>
+    <div class="px-2 mt-3">
+        <a href="https://wa.me/6283847406501"
+        target="_blank"
+        class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition">
+            <i class="ti ti-brand-whatsapp"></i>
+            Hubungi Admin Pembayaran
+        </a>
     </div>
 
 </div>
