@@ -136,7 +136,7 @@ if ($statusFilter !== 'semua') {
     <div class="px-2 mt-3">
         <a href="https://wa.me/6283847406501"
         target="_blank"
-        class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition">
+        class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#B86E4B] border border-[#B86E4B] hover:bg-[#B86E4B]/90 text-white text-xs font-medium transition">
             <i class="ti ti-brand-whatsapp"></i>
             Hubungi Admin Pembayaran
         </a>
