@@ -14,13 +14,15 @@
         exit;
     }
 
-    // Cek apakah user sudah login, jika ya langsung lempar ke dashboard
-    $user = $auth->checkLogin();
-    if (!$user['status']) {
+    // Cek apakah user sudah login, jika ya pastikan dia adalah pemohon/user biasa
+    $authUser = $auth->checkLogin();
+    if (!$authUser['status']) {
         header("Location: ../login.php");
         exit;
     }
-    $currentPage = $_GET['page'] ?? 'dashboard';
+    
+    // Set halaman default ke beranda pemohon
+    $currentPage = $_GET['page'] ?? 'beranda';
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +30,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agnimukti</title>
+    <title>Agnimukti - Pemohon</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
@@ -38,7 +40,7 @@
     <header class="md:hidden flex items-center justify-between px-4 py-3 bg-[#E8DDD0] border-b border-[#BFC3B1] sticky top-0 z-50">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-[#BFC3B1] flex items-center justify-center">
-                <img src="../assets/logo.png" alt="" class="w-full h-full">
+                <img src="../assets/logo.png" alt="Logo" class="w-full h-full">
             </div>
             <div>
                 <p class="text-sm font-semibold text-[#2B221D] leading-tight">Agnimukti</p>
@@ -56,11 +58,11 @@
         <div class="px-6 py-5 border-b border-[#BFC3B1] flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-lg bg-[#BFC3B1] flex items-center justify-center">
-                    <img src="../assets/logo.png" alt="" class="w-full h-full">
+                    <img src="../assets/logo.png" alt="Logo" class="w-full h-full">
                 </div>
                 <div>
                     <p class="text-sm font-semibold text-[#2B221D] leading-tight">Agnimukti</p>
-                    <p class="text-xs text-[#5B4636]">Kremasi Bali</p>
+                    <p class="text-xs text-[#5B4636]">Portal Pemohon</p>
                 </div>
             </div>
             <button id="closeBtn" class="md:hidden text-[#5B4636] hover:text-[#B86E4B]">
@@ -71,70 +73,42 @@
         <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
             <p class="text-xs text-[#5B4636] uppercase tracking-wider px-3 mb-2">Menu Utama</p>
 
-            <a href="?page=dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm
-            <?= $currentPage == 'dashboard'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-layout-dashboard text-lg" aria-hidden="true"></i>
-                Dashboard
+            <a href="?page=beranda" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'beranda' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
+                <i class="ti ti-smart-home text-lg" aria-hidden="true"></i>
+                Beranda
             </a>
 
-            <a href="?page=users" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'users'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-users text-lg" aria-hidden="true"></i>
-                Pengguna
-            </a>
-
-            <a href="?page=categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'categories'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-package text-lg" aria-hidden="true"></i>
-                Kategori Paket
-            </a>
-
-            <a href="?page=services" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'services'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
+            <a href="?page=daftar-paket" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'daftar-paket' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
                 <i class="ti ti-packages text-lg" aria-hidden="true"></i>
-                Paket Layanan
+                Daftar Paket Layanan
             </a>
 
-            <a href="?page=registration" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'registration'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-clipboard-list text-lg" aria-hidden="true"></i>
-                Pendaftaran
+            <a href="?page=pendaftaran" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'pendaftaran' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
+                <i class="ti ti-file-plus text-lg" aria-hidden="true"></i>
+                Pendaftaran Kremasi
             </a>
 
-            <a href="?page=payment" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'payment'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
+            <a href="?page=riwayat" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'riwayat' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
+                <i class="ti ti-history text-lg" aria-hidden="true"></i>
+                Riwayat Pendaftaran
+            </a>
+
+            <a href="?page=pembayaran" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+            <?= $currentPage == 'pembayaran' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
                 <i class="ti ti-credit-card text-lg" aria-hidden="true"></i>
-                Pembayaran
+                Status Pembayaran
             </a>
 
             <div class="pt-4">
-                <p class="text-xs text-[#5B4636] uppercase tracking-wider px-3 mb-2">Pengaturan</p>
-
+                <p class="text-xs text-[#5B4636] uppercase tracking-wider px-3 mb-2">Akun Saya</p>
                 <a href="?page=settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-                <?= $currentPage == 'settings'
-                    ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                    : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-                ">
-                    <i class="ti ti-settings text-lg" aria-hidden="true"></i>
-                    Pengaturan
+                <?= $currentPage == 'settings' ? 'bg-[#BFC3B1] text-[#5B4636] font-medium' : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>">
+                    <i class="ti ti-user-circle text-lg" aria-hidden="true"></i>
+                    Profil Saya
                 </a>
             </div>
         </nav>
@@ -143,15 +117,15 @@
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm overflow-hidden">
                     <img 
-                        src="<?= !empty($user['data']['foto_url']) ? $user['data']['foto_url'] : '../assets/user.jpg'; ?>" 
+                        src="<?= !empty($authUser['data']['foto_url']) ? $authUser['data']['foto_url'] : '../assets/user.jpg'; ?>" 
                         alt="User" 
                         class="w-full h-full object-cover"
                     >
                 </div>
 
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-[#2B221D] truncate"><?=$user['data']['nama']?></p>
-                    <p class="text-xs text-[#5B4636] truncate"><?=$user['data']['role']?></p>
+                    <p class="text-sm font-medium text-[#2B221D] truncate"><?= htmlspecialchars($authUser['data']['nama']) ?></p>
+                    <p class="text-xs text-[#5B4636] truncate">Pemohon</p>
                 </div>
 
                 <a href="?action=logout" onclick="return confirm('Apakah Anda yakin ingin keluar dari sistem?')" class="text-[#5B4636] hover:text-[#B86E4B] transition-colors" title="Keluar">
@@ -166,17 +140,21 @@
         <main class="flex-1">
             <?php
                 $routes = [
-                    'dashboard' => 'pages/dashboard.php',
-                    'users'     => 'pages/users.php',
-                    'services'  => 'pages/services.php',
-                    'categories'  => 'pages/categories.php',
-                    'registration'  => 'pages/registration.php',
-                    'payment'  => 'pages/payment.php',
-                    'settings'  => 'pages/settings.php'
+                    'beranda'       => 'pages/beranda.php',
+                    'daftar-paket'  => 'pages/daftar-paket.php',
+                    'pendaftaran'   => 'pages/pendaftaran.php',
+                    'riwayat'       => 'pages/riwayat.php',
+                    'pembayaran'    => 'pages/pembayaran.php',
+                    'settings'        => 'pages/settings.php'
                 ];
 
                 if (isset($routes[$currentPage])) {
-                    include $routes[$currentPage];
+                    // Cek apakah filenya ada sebelum di-include agar tidak error 500
+                    if (file_exists($routes[$currentPage])) {
+                        include $routes[$currentPage];
+                    } else {
+                        echo "<div class='p-6'><p class='text-sm text-red-600 font-mono'>File [{$routes[$currentPage]}] belum dibuat.</p></div>";
+                    }
                 } else {
                     include 'pages/404.php';
                 }

@@ -128,4 +128,35 @@ class Pembayaran
             ':id_pembayaran' => $id_pembayaran
         ]);
     }
+
+    // Ambil semua pembayaran berdasarkan user
+    public function getByUser($id_user)
+    {
+        $sql = "SELECT
+                    p.id_pembayaran,
+                    p.id_pendaftaran,
+                    d.kode_pendaftaran,
+                    d.nama_almarhum,
+                    p.tanggal_bayar,
+                    p.total_bayar,
+                    p.metode_pembayaran,
+                    p.status_pembayaran
+
+                FROM pembayaran p
+
+                JOIN pendaftaran d
+                    ON p.id_pendaftaran = d.id_pendaftaran
+
+                WHERE d.id_user = :id_user
+
+                ORDER BY p.id_pembayaran DESC";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            ':id_user' => $id_user
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

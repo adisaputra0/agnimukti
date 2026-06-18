@@ -193,4 +193,44 @@ class Pendaftaran
             ':id' => $id_pendaftaran
         ]);
     }
+
+    // Ambil semua pendaftaran berdasarkan id_user
+    public function getByUser($id_user)
+    {
+        $sql = "SELECT
+                    p.id_pendaftaran,
+                    p.kode_pendaftaran,
+                    p.nama_almarhum,
+                    p.tanggal_lahir,
+                    p.tanggal_meninggal,
+                    p.tanggal_daftar,
+                    p.status,
+                    p.catatan,
+
+                    u.id_user,
+                    u.nama AS nama_pemohon,
+
+                    pl.id_paket,
+                    pl.nama_paket,
+                    pl.harga
+
+                FROM pendaftaran p
+
+                JOIN users u
+                    ON p.id_user = u.id_user
+
+                JOIN paket_layanan pl
+                    ON p.id_paket = pl.id_paket
+
+                WHERE p.id_user = :id_user
+
+                ORDER BY p.id_pendaftaran DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':id_user' => $id_user
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
