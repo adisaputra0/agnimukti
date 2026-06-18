@@ -85,13 +85,12 @@ foreach ($allData as $p) {
             <i class="ti ti-bell text-xl" aria-hidden="true"></i>
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#B86E4B] rounded-full"></span>
         </button>
-        <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm">A</div>
     </div>
 </header>
 
 <main class="flex-1 p-6 space-y-6 bg-[#F5F1EC]/30">
 
-    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         
         <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
             <div class="flex items-center justify-between mb-4">
@@ -104,7 +103,7 @@ foreach ($allData as $p) {
             <p class="text-xs text-[#5B4636] mt-1">Dana bersih masuk</p>
         </div>
 
-        <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
+        <!-- <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-sm text-[#5B4636]">Perlu Verifikasi</p>
                 <div class="w-10 h-10 rounded-lg bg-[#B86E4B]/10 flex items-center justify-center border border-[#B86E4B]/30">
@@ -113,7 +112,7 @@ foreach ($allData as $p) {
             </div>
             <p class="text-2xl font-bold text-[#2B221D]">Rp <?= number_format($perluVerifikasiDana, 0, ',', '.') ?></p>
             <p class="text-xs text-[#B86E4B] mt-1"><?= $transaksiTertundaCount ?> Transaksi tertunda</p>
-        </div>
+        </div> -->
 
         <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
             <div class="flex items-center justify-between mb-4">

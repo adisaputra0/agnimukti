@@ -77,7 +77,6 @@ $format_harga_tertinggi = $harga_tertinggi > 0 ? 'Rp ' . number_format($harga_te
             <i class="ti ti-bell text-xl" aria-hidden="true"></i>
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#B86E4B] rounded-full"></span>
         </button>
-        <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm">A</div>
     </div>
 </header>
 

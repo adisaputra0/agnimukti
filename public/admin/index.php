@@ -1,4 +1,25 @@
 <?php
+    require_once __DIR__ . '/../../classes/Auth.php';
+
+    // =========================================================================
+    // LOGIKA BACKEND LOGIN & LOGOUT
+    // =========================================================================
+    $auth = new Auth();
+    $alertMessage = "";
+
+    // Fitur proses logout jika parameter action ditekan
+    if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+        $auth->logout();
+        header("Location: ../login.php");
+        exit;
+    }
+
+    // Cek apakah user sudah login, jika ya langsung lempar ke dashboard
+    $user = $auth->checkLogin();
+    if (!$user['status']) {
+        header("Location: ../login.php");
+        exit;
+    }
     $currentPage = $_GET['page'] ?? 'dashboard';
 ?>
 
@@ -120,16 +141,20 @@
 
         <div class="px-4 py-4 border-t border-[#BFC3B1]">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#5B4636] font-semibold text-sm">
-                    A
+                <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm overflow-hidden">
+                    <img 
+                        src="<?= !empty($user['data']['foto_url']) ? $user['data']['foto_url'] : '../assets/user.jpg'; ?>" 
+                        alt="User" 
+                        class="w-full h-full object-cover"
+                    >
                 </div>
 
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-[#2B221D] truncate">Administrator</p>
-                    <p class="text-xs text-[#5B4636] truncate">Super Admin</p>
+                    <p class="text-sm font-medium text-[#2B221D] truncate"><?=$user['data']['nama']?></p>
+                    <p class="text-xs text-[#5B4636] truncate"><?=$user['data']['role']?></p>
                 </div>
 
-                <a href="#" class="text-[#5B4636] hover:text-[#B86E4B] transition-colors">
+                <a href="?action=logout" onclick="return confirm('Apakah Anda yakin ingin keluar dari sistem?')" class="text-[#5B4636] hover:text-[#B86E4B] transition-colors" title="Keluar">
                     <i class="ti ti-logout text-lg" aria-hidden="true"></i>
                 </a>
             </div>

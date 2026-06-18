@@ -49,16 +49,13 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
 <header class="bg-[#E8DDD0] border-b border-[#BFC3B1] px-6 py-4 flex items-center justify-between sticky top-0 z-30">
     <div>
         <h1 class="text-lg font-semibold text-[#2B221D]">Dashboard</h1>
-        <p class="text-xs text-[#5B4636]">Selamat datang kembali, Administrator</p>
+        <p class="text-xs text-[#5B4636]">Selamat datang kembali</p>
     </div>
     <div class="flex items-center gap-3">
         <button class="relative text-[#5B4636] hover:text-[#2B221D] p-2 rounded-lg hover:bg-[#D8D2C6] transition-colors">
             <i class="ti ti-bell text-xl" aria-hidden="true"></i>
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#B86E4B] rounded-full"></span>
         </button>
-        <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm">
-            A
-        </div>
     </div>
 </header>
 
