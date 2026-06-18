@@ -118,7 +118,8 @@ class Auth {
             "id_user" => $user['id_user'],
             "nama" => $user['nama'],
             "username" => $user['username'],
-            "role" => $user['role']
+            "role" => $user['role'],
+            "foto_url" => $user['foto_url']
         ];
 
         return [

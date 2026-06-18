@@ -131,11 +131,14 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                 </select>
                 <button type="submit" class="hidden"></button>
             </form>
-            <button onclick="document.getElementById('modalTambah').classList.remove('hidden')"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors">
-                <i class="ti ti-plus text-base" aria-hidden="true"></i>
-                Tambah
-            </button>
+            
+            <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                <button onclick="document.getElementById('modalTambah').classList.remove('hidden')"
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-[#B86E4B] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors">
+                    <i class="ti ti-plus text-base" aria-hidden="true"></i>
+                    Tambah
+                </button>
+            <?php endif; ?>
         </div>
 
         <div class="overflow-x-auto">
@@ -149,7 +152,10 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                         <th class="px-5 py-3 font-medium">No. Telepon</th>
                         <th class="px-5 py-3 font-medium">Alamat</th>
                         <th class="px-5 py-3 font-medium">Terdaftar</th>
-                        <th class="px-5 py-3 font-medium text-center">Aksi</th>
+                        
+                        <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                            <th class="px-5 py-3 font-medium text-center">Aksi</th>
+                        <?php endif;?>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#D8D2C6]">
@@ -188,20 +194,22 @@ $totalPemohon = count(array_filter($allUsers, fn($u) => $u['role'] === 'pemohon'
                         <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['no_telepon'] ?? '-') ?></td>
                         <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= htmlspecialchars($user['alamat'] ?? '-') ?></td>
                         <td class="px-5 py-3.5 text-[#5B4636] text-xs"><?= $terdaftar ?></td>
-                        <td class="px-5 py-3.5">
-                            <div class="flex items-center justify-center gap-2">
-                                <button onclick="openEdit(<?= htmlspecialchars(json_encode($user)) ?>)" class="p-1.5 rounded-lg text-[#5B4636] hover:bg-[#E8DDD0] transition-colors" title="Edit">
-                                    <i class="ti ti-edit text-base" aria-hidden="true"></i>
-                                </button>
-                                <form method="POST" onsubmit="return confirm('Hapus pengguna ini?')" style="display:inline">
-                                    <input type="hidden" name="action" value="hapus">
-                                    <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
-                                    <button type="submit" class="p-1.5 rounded-lg text-[#B86E4B] hover:bg-[#B86E4B]/10 transition-colors" title="Hapus">
-                                        <i class="ti ti-trash text-base" aria-hidden="true"></i>
+                        <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                            <td class="px-5 py-3.5">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button onclick="openEdit(<?= htmlspecialchars(json_encode($user)) ?>)" class="p-1.5 rounded-lg text-[#5B4636] hover:bg-[#E8DDD0] transition-colors" title="Edit">
+                                        <i class="ti ti-edit text-base" aria-hidden="true"></i>
                                     </button>
-                                </form>
-                            </div>
-                        </td>
+                                    <form method="POST" onsubmit="return confirm('Hapus pengguna ini?')" style="display:inline">
+                                        <input type="hidden" name="action" value="hapus">
+                                        <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
+                                        <button type="submit" class="p-1.5 rounded-lg text-[#B86E4B] hover:bg-[#B86E4B]/10 transition-colors" title="Hapus">
+                                            <i class="ti ti-trash text-base" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        <?php endif;?>
                     </tr>
                     <?php endforeach; ?>
 

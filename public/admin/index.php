@@ -15,8 +15,8 @@
     }
 
     // Cek apakah user sudah login, jika ya langsung lempar ke dashboard
-    $user = $auth->checkLogin();
-    if (!$user['status']) {
+    $authUser = $auth->checkLogin();
+    if (!$authUser['status']) {
         header("Location: ../login.php");
         exit;
     }
@@ -89,23 +89,25 @@
                 Pengguna
             </a>
 
-            <a href="?page=categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'categories'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-package text-lg" aria-hidden="true"></i>
-                Kategori Paket
-            </a>
+            <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+                <a href="?page=categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+                    <?= $currentPage == 'categories'
+                        ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
+                        : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
+                    ">
+                    <i class="ti ti-package text-lg" aria-hidden="true"></i>
+                    Kategori Paket
+                </a>
 
-            <a href="?page=services" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
-            <?= $currentPage == 'services'
-                ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
-                : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
-            ">
-                <i class="ti ti-packages text-lg" aria-hidden="true"></i>
-                Paket Layanan
-            </a>
+                <a href="?page=services" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+                    <?= $currentPage == 'services'
+                        ? 'bg-[#BFC3B1] text-[#5B4636] font-medium'
+                        : 'text-[#5B4636] hover:bg-[#D8D2C6]'; ?>
+                    ">
+                    <i class="ti ti-packages text-lg" aria-hidden="true"></i>
+                    Paket Layanan
+                </a>
+            <?php endif; ?>
 
             <a href="?page=registration" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
             <?= $currentPage == 'registration'
@@ -143,15 +145,15 @@
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-[#BFC3B1] flex items-center justify-center text-[#2B221D] font-semibold text-sm overflow-hidden">
                     <img 
-                        src="<?= !empty($user['data']['foto_url']) ? $user['data']['foto_url'] : '../assets/user.jpg'; ?>" 
+                        src="<?= $authUser['data']['foto_url'] ? $authUser['data']['foto_url'] : '../assets/user.jpg'; ?>" 
                         alt="User" 
                         class="w-full h-full object-cover"
                     >
                 </div>
 
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-[#2B221D] truncate"><?=$user['data']['nama']?></p>
-                    <p class="text-xs text-[#5B4636] truncate"><?=$user['data']['role']?></p>
+                    <p class="text-sm font-medium text-[#2B221D] truncate"><?=$authUser['data']['nama']?></p>
+                    <p class="text-xs text-[#5B4636] truncate"><?=$authUser['data']['role']?></p>
                 </div>
 
                 <a href="?action=logout" onclick="return confirm('Apakah Anda yakin ingin keluar dari sistem?')" class="text-[#5B4636] hover:text-[#B86E4B] transition-colors" title="Keluar">

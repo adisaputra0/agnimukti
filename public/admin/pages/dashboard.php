@@ -43,6 +43,7 @@ if ($totalPemohon === 0 && $totalAdmin === 0) {
 // Urutkan atau batasi data terbaru jika diperlukan (opsional, mengambil data teratas)
 $pendaftaranTerbaru = array_slice($listPendaftaran, 0, 5); 
 $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
+
 ?>
 
 <!-- Topbar -->
@@ -61,21 +62,34 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
 
 <!-- Page Body -->
 <main class="flex-1 p-6 space-y-6 bg-[#F5F1EC]/30">
-
     <!-- Stat Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 <?=$authUser['data']['role'] == 'super_admin'? 'xl:grid-cols-4':''?>">
 
-        <!-- Total Admin -->
-        <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
-            <div class="flex items-center justify-between mb-4">
-                <p class="text-sm text-[#5B4636]">Total Admin</p>
-                <div class="w-10 h-10 rounded-lg bg-[#E8DDD0] flex items-center justify-center">
-                    <i class="ti ti-shield-check text-[#B86E4B] text-xl" aria-hidden="true"></i>
+        <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+            <!-- Total Admin -->
+            <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-sm text-[#5B4636]">Total Admin</p>
+                    <div class="w-10 h-10 rounded-lg bg-[#E8DDD0] flex items-center justify-center">
+                        <i class="ti ti-shield-check text-[#B86E4B] text-xl" aria-hidden="true"></i>
+                    </div>
                 </div>
+                <p class="text-3xl font-semibold text-[#2B221D]"><?= $totalAdmin; ?></p>
+                <p class="text-xs text-[#5B4636] mt-1">Admin aktif</p>
             </div>
-            <p class="text-3xl font-semibold text-[#2B221D]"><?= $totalAdmin; ?></p>
-            <p class="text-xs text-[#5B4636] mt-1">Super admin aktif</p>
-        </div>
+
+            <!-- Total Paket -->
+            <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-sm text-[#5B4636]">Total Paket</p>
+                    <div class="w-10 h-10 rounded-lg bg-[#E8DDD0] flex items-center justify-center">
+                        <i class="ti ti-package text-[#5B4636] text-xl" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <p class="text-3xl font-semibold text-[#2B221D]"><?= $totalPaket; ?></p>
+                <p class="text-xs text-[#5B4636] mt-1">Paket layanan tersedia</p>
+            </div>
+        <?php endif; ?>
 
         <!-- Total Pemohon -->
         <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
@@ -87,18 +101,6 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
             </div>
             <p class="text-3xl font-semibold text-[#2B221D]"><?= $totalPemohon; ?></p>
             <p class="text-xs text-[#5B4636] mt-1">Pengguna terdaftar</p>
-        </div>
-
-        <!-- Total Paket -->
-        <div class="bg-white rounded-xl border border-[#BFC3B1] p-5">
-            <div class="flex items-center justify-between mb-4">
-                <p class="text-sm text-[#5B4636]">Total Paket</p>
-                <div class="w-10 h-10 rounded-lg bg-[#E8DDD0] flex items-center justify-center">
-                    <i class="ti ti-package text-[#5B4636] text-xl" aria-hidden="true"></i>
-                </div>
-            </div>
-            <p class="text-3xl font-semibold text-[#2B221D]"><?= $totalPaket; ?></p>
-            <p class="text-xs text-[#5B4636] mt-1">Paket layanan tersedia</p>
         </div>
 
         <!-- Total Pendaftaran -->
@@ -223,36 +225,37 @@ $pembayaranTerbaru = array_slice($listPembayaran, 0, 5);
 
     </div>
 
-    <!-- Paket Layanan Dinamis -->
-    <div class="bg-white rounded-xl border border-[#BFC3B1]">
-        <div class="px-5 py-4 border-b border-[#D8D2C6] flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-[#2B221D]">Paket Layanan</h2>
-            <a href="?page=services" class="text-xs text-[#B86E4B] hover:underline">Kelola paket</a>
-        </div>
+    <?php if (($authUser['data']['role'] ?? '') === 'super_admin'): ?>
+        <!-- Paket Layanan Dinamis -->
+        <div class="bg-white rounded-xl border border-[#BFC3B1]">
+            <div class="px-5 py-4 border-b border-[#D8D2C6] flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-[#2B221D]">Paket Layanan</h2>
+                <a href="?page=services" class="text-xs text-[#B86E4B] hover:underline">Kelola paket</a>
+            </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
-            <?php if(empty($listPaket)): ?>
-                <p class="text-xs text-[#5B4636] col-span-full text-center py-4">Belum ada paket layanan terdaftar di database.</p>
-            <?php else: ?>
-                <?php foreach($listPaket as $paket): ?>
-                <div class="bg-white border border-[#BFC3B1] rounded-lg p-4 hover:border-[#B86E4B] transition-all hover:shadow-sm">
-                    <div class="flex items-start justify-between mb-2">
-                        <div>
-                            <!-- Badge dinamis berdasarkan harga atau deskripsi (contoh: jika di atas 5jt Premium) -->
-                            <span class="text-xs font-medium bg-[#E8DDD0] text-[#5B4636] px-2 py-0.5 rounded-full">
-                                <?= ($paket['harga'] >= 5000000) ? 'Premium' : 'Standar'; ?>
-                            </span>
-                            <p class="text-sm font-semibold text-[#2B221D] mt-2"><?= htmlspecialchars($paket['nama_paket']); ?></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
+                <?php if(empty($listPaket)): ?>
+                    <p class="text-xs text-[#5B4636] col-span-full text-center py-4">Belum ada paket layanan terdaftar di database.</p>
+                <?php else: ?>
+                    <?php foreach($listPaket as $paket): ?>
+                    <div class="bg-white border border-[#BFC3B1] rounded-lg p-4 hover:border-[#B86E4B] transition-all hover:shadow-sm">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <!-- Badge dinamis berdasarkan harga atau deskripsi (contoh: jika di atas 5jt Premium) -->
+                                <span class="text-xs font-medium bg-[#E8DDD0] text-[#5B4636] px-2 py-0.5 rounded-full">
+                                    <?= ($paket['harga'] >= 5000000) ? 'Premium' : 'Standar'; ?>
+                                </span>
+                                <p class="text-sm font-semibold text-[#2B221D] mt-2"><?= htmlspecialchars($paket['nama_paket']); ?></p>
+                            </div>
+                            <i class="<?= ($paket['harga'] >= 7000000) ? 'ti ti-crown' : 'ti ti-flame'; ?> text-[#B86E4B] text-xl" aria-hidden="true"></i>
                         </div>
-                        <i class="<?= ($paket['harga'] >= 7000000) ? 'ti ti-crown' : 'ti ti-flame'; ?> text-[#B86E4B] text-xl" aria-hidden="true"></i>
+                        <!-- Deskripsi paket dinamis -->
+                        <p class="text-xs text-[#5B4636] mb-3 line-clamp-2 h-8"><?= htmlspecialchars($paket['deskripsi'] ?? 'Fasilitas kremasi lengkap dan terpercaya.'); ?></p>
+                        <p class="text-base font-bold text-[#B86E4B]">Rp <?= number_format($paket['harga'], 0, ',', '.'); ?></p>
                     </div>
-                    <!-- Deskripsi paket dinamis -->
-                    <p class="text-xs text-[#5B4636] mb-3 line-clamp-2 h-8"><?= htmlspecialchars($paket['deskripsi'] ?? 'Fasilitas kremasi lengkap dan terpercaya.'); ?></p>
-                    <p class="text-base font-bold text-[#B86E4B]">Rp <?= number_format($paket['harga'], 0, ',', '.'); ?></p>
-                </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-
+    <?php endif; ?>
 </main>
