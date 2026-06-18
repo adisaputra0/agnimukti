@@ -141,13 +141,13 @@ foreach ($allData as $p) {
                             class="pl-8 pr-4 py-1.5 text-sm border border-[#BFC3B1] rounded-lg bg-[#F5F1EC] text-[#2B221D] placeholder-[#5B4636]/60 focus:outline-none focus:ring-2 focus:ring-[#B86E4B]/30 focus:border-[#B86E4B] w-60"
                         >
                     </div>
-                    <button type="submit" class="px-3 py-1.5 bg-[#5B4636] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors font-medium">
+                    <!-- <button type="submit" class="px-3 py-1.5 bg-[#5B4636] hover:bg-[#2B221D] text-white text-sm rounded-lg transition-colors font-medium">
                         Cari
-                    </button>
+                    </button> -->
                     <?php if ($search !== ''): ?>
-                        <a href="?page=payment" class="px-2 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] text-sm rounded-lg transition-colors">
+                        <!-- <a href="?page=payment" class="px-2 py-1.5 border border-[#BFC3B1] text-[#5B4636] hover:bg-[#F5F1EC] text-sm rounded-lg transition-colors">
                             Reset
-                        </a>
+                        </a> -->
                     <?php endif; ?>
                 </form>
 
