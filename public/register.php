@@ -51,7 +51,7 @@
             <div>
                 <p class="text-center mt-4 text-[#5B4636]">
                     Sudah punya akun?
-                    <a href="login.html"
+                    <a href="login.php"
                        class="font-semibold text-[#B86E4B] hover:underline">
                         Masuk
                     </a>

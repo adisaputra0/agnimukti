@@ -51,7 +51,7 @@
             <div>
                 <p class="text-center mt-4 text-[#5B4636]">
                     Belum punya akun?
-                    <a href="register.html"
+                    <a href="register.php"
                        class="font-semibold text-[#B86E4B] hover:underline">
                         Daftar
                     </a>
