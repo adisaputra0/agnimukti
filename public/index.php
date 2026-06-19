@@ -114,101 +114,97 @@
         <!-- HERO                                                          -->
         <!-- ============================================================ -->
         <section class="relative overflow-hidden">
-        <!-- decorative blurred glow -->
-        <div class="pointer-events-none absolute -top-24 -right-32 w-[28rem] h-[28rem] rounded-full bg-accent/20 blur-3xl"></div>
-            <div class="pointer-events-none absolute top-1/2 -left-32 w-72 h-72 rounded-full bg-supporting/30 blur-3xl"></div>
+            <img src="assets\pura_1.png"
+            class="absolute inset-0 h-full w-full object-cover opacity-80">
 
-                <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-14 pb-20 lg:pt-20 lg:pb-28 relative">
-                    <div class="grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-14 pb-20 lg:pt-20 lg:pb-28 relative">
+                <div class="grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
 
-                        <img src="assets\pura_1.png"
-                        class="absolute right-0 top-0 h-full w-full opacity-80">
-            
-                        <!-- Text -->
-                        <div class="animate-fade-up">
-                            <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-accent">
-                                <svg class="w-3.5 h-3.5"><use href="#icon-flame"/></svg>
-                                Sistem Informasi Krematorium Digital
-                            </span>
-                            <h1 class="mt-5 font-serif font-semibold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.1] text-ink">
-                                Mendampingi Perjalanan Terakhir dengan Tenang &amp; Penuh Hormat
-                            </h1>
-                            <p class="mt-6 text-base sm:text-lg text-ink-muted leading-relaxed max-w-xl">
-                                AgniMukti membantu keluarga mengelola seluruh proses layanan kremasi secara digital — mulai dari administrasi dokumen, penjadwalan, hingga pemantauan status secara real-time. Satu sistem yang menjaga setiap langkah tetap tenang dan bermartabat.
-                            </p>
+                    
+        
+                    <!-- Text -->
+                    <div class="animate-fade-up">
+                        <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                            <svg class="w-3.5 h-3.5"><use href="#icon-flame"/></svg>
+                            Sistem Informasi Krematorium Digital
+                        </span>
+                        <h1 class="mt-5 font-serif font-semibold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.1] text-ink">
+                            Mendampingi Perjalanan Terakhir dengan Tenang &amp; Penuh Hormat
+                        </h1>
+                        <p class="mt-6 text-base sm:text-lg text-ink-muted leading-relaxed max-w-xl">
+                            AgniMukti membantu keluarga mengelola seluruh proses layanan kremasi secara digital — mulai dari administrasi dokumen, penjadwalan, hingga pemantauan status secara real-time. Satu sistem yang menjaga setiap langkah tetap tenang dan bermartabat.
+                        </p>
 
-                            <div class="mt-8 flex flex-wrap items-center gap-4">
-                                <a href="#paket" class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
-                                    Lihat Paket Layanan
-                                    <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
-                                </a>
-                                <a href="#kontak" class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary/25 px-7 py-3.5 text-sm font-semibold text-primary hover:border-primary hover:bg-primary/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
-                                    Hubungi Kami
-                                </a>
-                            </div>
-
-                            <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-muted">
-                                <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Proses Bermartabat</span>
-                                <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Administrasi Resmi &amp; Lengkap</span>
-                                <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Status Real-Time</span>
-                            </div>
+                        <div class="mt-8 flex flex-wrap items-center gap-4">
+                            <a href="#paket" class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
+                                Lihat Paket Layanan
+                                <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
+                            </a>
+                            <a href="#kontak" class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary/25 px-7 py-3.5 text-sm font-semibold text-primary hover:border-primary hover:bg-primary/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
+                                Hubungi Kami
+                            </a>
                         </div>
-                    </div> 
-                </div>
+
+                        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-muted">
+                            <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Proses Bermartabat</span>
+                            <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Administrasi Resmi &amp; Lengkap</span>
+                            <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-accent"><use href="#icon-sparkle"/></svg>Status Real-Time</span>
+                        </div>
+                    </div>
+                </div> 
             </div> 
-        </div>
+        </section>
 
         <!-- ============================================================ -->
         <!-- TENTANG KAMI                                                  -->
         <!-- ============================================================ -->
         <section id="tentang" class="bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-            <div>
-                <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Tentang Kami</span>
-                <h2 class="mt-4 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-ink">
-                Melayani dengan Hati, Mendampingi dengan Profesional
-                </h2>
-                <p class="mt-6 text-base sm:text-lg text-ink-muted leading-relaxed">
-                AgniMukti hadir untuk menyederhanakan proses layanan kremasi bagi keluarga yang sedang berduka. Melalui sistem digital yang transparan, setiap tahapan — mulai dari administrasi, penjadwalan, hingga pelaksanaan — berjalan rapi, bermartabat, dan mudah dipantau langsung oleh keluarga.
-                </p>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Tentang Kami</span>
+                        <h2 class="mt-4 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-ink">
+                        Melayani dengan Hati, Mendampingi dengan Profesional
+                        </h2>
+                        <p class="mt-6 text-base sm:text-lg text-ink-muted leading-relaxed">
+                        AgniMukti hadir untuk menyederhanakan proses layanan kremasi bagi keluarga yang sedang berduka. Melalui sistem digital yang transparan, setiap tahapan — mulai dari administrasi, penjadwalan, hingga pelaksanaan — berjalan rapi, bermartabat, dan mudah dipantau langsung oleh keluarga.
+                        </p>
 
-                <div class="mt-7 flex flex-wrap gap-3">
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
-                    <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Transparan
-                </span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
-                    <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Profesional
-                </span>
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
-                    <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Penuh Empati
-                </span>
+                        <div class="mt-7 flex flex-wrap gap-3">
+                            <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
+                                <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Transparan
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
+                                <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Profesional
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-secondary/60 px-4 py-1.5 text-sm font-semibold text-primary">
+                                <svg class="w-3.5 h-3.5 text-accent"><use href="#icon-sparkle"/></svg>Penuh Empati
+                            </span>
+                        </div>
+
+                        <a href="tentang.php" class="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-primary-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                        Selengkapnya Tentang Kami
+                        <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- Quote card -->
+                    <div class="relative rounded-4xl bg-primary p-10 sm:p-12 shadow-soft overflow-hidden">
+
+                        <img src="assets\pura_2.png" class= "absolute right-0 top-0 h-full w-full opacity-70">
+
+                        <svg class="absolute -bottom-8 -right-6 w-44 h-44 text-white/5" aria-hidden="true"><use href="#icon-flame"/></svg>
+                        <svg class="w-8 h-8 text-accent-light relative"><use href="#icon-flame"/></svg>
+                        <p class="relative mt-6 font-serif italic text-2xl sm:text-3xl leading-snug text-[#FFFFFF]">
+                        "Agni menyucikan, Mukti membebaskan."
+                        </p>
+                        <p class="relative mt-5 text-sm sm:text-base text-[#FFFFFF]/80 leading-relaxed">
+                        Dua makna yang menjadi dasar setiap layanan kami — proses yang murni, dan kepergian yang tenang.
+                        </p>
+                    </div>
                 </div>
-
-                <a href="tentang.php" class="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-primary-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
-                Selengkapnya Tentang Kami
-                <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
-                </a>
             </div>
-
-            <!-- Quote card -->
-            <div class="relative rounded-4xl bg-primary p-10 sm:p-12 shadow-soft overflow-hidden">
-
-                <img src="assets\pura_2.png" class= "absolute right-0 top-0 h-full w-full opacity-70">
-
-                <svg class="absolute -bottom-8 -right-6 w-44 h-44 text-white/5" aria-hidden="true"><use href="#icon-flame"/></svg>
-                <svg class="w-8 h-8 text-accent-light relative"><use href="#icon-flame"/></svg>
-                <p class="relative mt-6 font-serif italic text-2xl sm:text-3xl leading-snug text-[#FFFFFF]">
-                "Agni menyucikan, Mukti membebaskan."
-                </p>
-                <p class="relative mt-5 text-sm sm:text-base text-[#FFFFFF]/80 leading-relaxed">
-                Dua makna yang menjadi dasar setiap layanan kami — proses yang murni, dan kepergian yang tenang.
-                </p>
-            </div>
-
-            </div>
-        </div>
         </section>
 
         <!-- ============================================================ -->
@@ -263,7 +259,6 @@
                         <h3 class="mt-5 font-serif font-semibold text-xl text-ink">Pilihan Paket Fleksibel</h3>
                         <p class="mt-2.5 text-sm text-ink-muted leading-relaxed">Tersedia beberapa pilihan paket layanan yang dapat disesuaikan dengan kebutuhan keluarga.</p>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -274,67 +269,66 @@
         <section id="paket" class="bg-secondary">
             <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
                 <div class="max-w-2xl mx-auto text-center">
-                <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket Layanan</span>
-                <h2 class="mt-4 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-ink">
-                    Pilih Paket Sesuai Kebutuhan Keluarga
-                </h2>
-                <p class="mt-5 text-base sm:text-lg text-ink-muted leading-relaxed">
-                    Setiap paket dirancang untuk memberikan pendampingan yang sesuai, tanpa mengurangi rasa hormat dalam prosesnya.
-                </p>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket Layanan</span>
+                    <h2 class="mt-4 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-ink">
+                        Pilih Paket Sesuai Kebutuhan Keluarga
+                    </h2>
+                    <p class="mt-5 text-base sm:text-lg text-ink-muted leading-relaxed">
+                        Setiap paket dirancang untuk memberikan pendampingan yang sesuai, tanpa mengurangi rasa hormat dalam prosesnya.
+                    </p>
                 </div>
 
                 <div class="mt-14 grid lg:grid-cols-3 gap-6 lg:gap-7 items-start">
 
-                <!-- Paket 01 -->
-                <div class="rounded-4xl bg-white p-9 shadow-card h-full">
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 01</span>
-                    <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Dasar</h3>
-                    <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi esensial dengan administrasi lengkap dan proses yang bermartabat.</p>
-                    <div class="mt-7 h-px bg-primary/10"></div>
-                    <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi standar</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah dasar</li>
-                    </ul>
-                    <p class="mt-5 text-xs font-semibold text-ink-muted">+1 fasilitas lainnya</p>
-                </div>
+                    <!-- Paket 01 -->
+                    <div class="rounded-4xl bg-white p-9 shadow-card h-full">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 01</span>
+                        <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Dasar</h3>
+                        <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi esensial dengan administrasi lengkap dan proses yang bermartabat.</p>
+                        <div class="mt-7 h-px bg-primary/10"></div>
+                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi standar</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah dasar</li>
+                        </ul>
+                        <p class="mt-5 text-xs font-semibold text-ink-muted">+1 fasilitas lainnya</p>
+                    </div>
 
-                <!-- Paket 02 - populer -->
-                <div class="relative rounded-4xl bg-primary p-9 shadow-soft h-full lg:-translate-y-3">
-                    <span class="absolute top-7 right-7 rounded-full bg-accent px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Terpopuler</span>
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent-light">Paket 02</span>
-                    <h3 class="mt-2 font-serif font-semibold text-3xl text-secondary">Madya</h3>
-                    <p class="mt-3 text-sm text-secondary/70 leading-relaxed">Keseimbangan antara kesederhanaan dan penghormatan yang lengkap bagi almarhum.</p>
-                    <div class="mt-7 h-px bg-white/10"></div>
-                    <ul class="mt-6 space-y-3.5 text-sm font-medium text-secondary">
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Wadah abu jenazah premium</li>
-                    </ul>
-                    <p class="mt-5 text-xs font-semibold text-secondary/60">+2 fasilitas lainnya</p>
-                </div>
+                    <!-- Paket 02 - populer -->
+                    <div class="relative rounded-4xl bg-primary p-9 shadow-soft h-full lg:-translate-y-3">
+                        <span class="absolute top-7 right-7 rounded-full bg-accent px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Terpopuler</span>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent-light">Paket 02</span>
+                        <h3 class="mt-2 font-serif font-semibold text-3xl text-secondary">Madya</h3>
+                        <p class="mt-3 text-sm text-secondary/70 leading-relaxed">Keseimbangan antara kesederhanaan dan penghormatan yang lengkap bagi almarhum.</p>
+                        <div class="mt-7 h-px bg-white/10"></div>
+                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-secondary">
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Wadah abu jenazah premium</li>
+                        </ul>
+                        <p class="mt-5 text-xs font-semibold text-secondary/60">+2 fasilitas lainnya</p>
+                    </div>
 
-                <!-- Paket 03 -->
-                <div class="rounded-4xl bg-white p-9 shadow-card h-full">
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 03</span>
-                    <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Utama</h3>
-                    <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi paling lengkap dengan upacara pelepasan dan pendampingan penuh.</p>
-                    <div class="mt-7 h-px bg-primary/10"></div>
-                    <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah eksklusif</li>
-                    </ul>
-                    <p class="mt-5 text-xs font-semibold text-ink-muted">+3 fasilitas lainnya</p>
+                    <!-- Paket 03 -->
+                    <div class="rounded-4xl bg-white p-9 shadow-card h-full">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 03</span>
+                        <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Utama</h3>
+                        <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi paling lengkap dengan upacara pelepasan dan pendampingan penuh.</p>
+                        <div class="mt-7 h-px bg-primary/10"></div>
+                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
+                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah eksklusif</li>
+                        </ul>
+                        <p class="mt-5 text-xs font-semibold text-ink-muted">+3 fasilitas lainnya</p>
+                    </div>
                 </div>
-
-                </div>
-
-                <div class="mt-14 text-center">
-                <a href="paket.php" class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
-                    Lihat Semua Paket &amp; Harga
-                    <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
-                </a>
+                
+                <div class="mt-14 w-full text-center">
+                    <a href="paket.php" class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-secondary">
+                        Lihat Semua Paket &amp; Harga
+                        <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
+                    </a>
                 </div>
             </div>
         </section>
@@ -388,27 +382,27 @@
         <!-- CTA                                                           -->
         <!-- ============================================================ -->
         <section class="bg-secondary">
-        <div class="max-w-7xl mx-auto mt-20 px-6 lg:px-10 pb-20 lg:pb-28">
-            
-            <div class="relative overflow-hidden rounded-4xl bg-[#5B4636] px-8 py-16 sm:px-16 sm:py-20 text-center">
-                <img src="assets\pura_3.png" class="absolute right-0 top-0 h-full w-full opacity-40" >
+            <div class="max-w-7xl mx-auto mt-20 px-6 lg:px-10 pb-20 lg:pb-28">
+                
+                <div class="relative overflow-hidden rounded-4xl bg-[#5B4636] px-8 py-16 sm:px-16 sm:py-20 text-center">
+                    <img src="assets\pura_3.png" class="absolute right-0 top-0 h-full w-full opacity-40" >
 
-                <div class="pointer-events-none absolute -top-16 -left-10 w-64 h-64 rounded-full bg-accent/20 blur-3xl"></div>
-                <div class="pointer-events-none absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-supporting/10 blur-3xl"></div>
+                    <div class="pointer-events-none absolute -top-16 -left-10 w-64 h-64 rounded-full bg-accent/20 blur-3xl"></div>
+                    <div class="pointer-events-none absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-supporting/10 blur-3xl"></div>
 
-                <svg class="relative mx-auto w-9 h-9 text-accent-light"><use href="#icon-flame"/></svg>
-                <h2 class="relative mt-6 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-[#FFFFFF] max-w-2xl mx-auto">
-                    Hadirkan Ketenangan di Setiap Langkah Perpisahan
-                </h2>
-                <p class="relative mt-5 text-base sm:text-lg text-[#FFFFFF]/90 max-w-xl mx-auto leading-relaxed">
-                    Hubungi tim AgniMukti untuk konsultasi layanan kremasi yang sesuai dengan kebutuhan keluarga Anda.
-                </p>
-                <a href="https://wa.me/62895410558960" class="relative mt-9 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
-                    Hubungi Kami Sekarang
-                    <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
-                </a>
+                    <svg class="relative mx-auto w-9 h-9 text-accent-light"><use href="#icon-flame"/></svg>
+                    <h2 class="relative mt-6 font-serif font-semibold text-3xl sm:text-4xl lg:text-[2.6rem] leading-tight text-[#FFFFFF] max-w-2xl mx-auto">
+                        Hadirkan Ketenangan di Setiap Langkah Perpisahan
+                    </h2>
+                    <p class="relative mt-5 text-base sm:text-lg text-[#FFFFFF]/90 max-w-xl mx-auto leading-relaxed">
+                        Hubungi tim AgniMukti untuk konsultasi layanan kremasi yang sesuai dengan kebutuhan keluarga Anda.
+                    </p>
+                    <a href="https://wa.me/62895410558960" class="relative mt-9 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white shadow-soft hover:bg-accent-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+                        Hubungi Kami Sekarang
+                        <svg class="w-4 h-4"><use href="#icon-arrow"/></svg>
+                    </a>
+                </div>
             </div>
-        </div>
         </section>
 
     </main>
@@ -417,56 +411,55 @@
     <!-- FOOTER                                                        -->
     <!-- ============================================================ -->
     <footer class="bg-primary-dark text-secondary/80">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-8">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-        <div class="lg:col-span-1">
-            <a href="index.php" class="flex items-center gap-2.5">
-            <span class="grid place-items-center w-9 h-9 rounded-xl bg-accent text-white">
-                <svg style="width:18px;height:18px"><use href="#icon-flame"/></svg>
-            </span>
-            <span class="font-serif text-2xl font-semibold text-secondary">AgniMukti</span>
-            </a>
-            <p class="mt-4 text-sm leading-relaxed text-secondary/60">
-            Sistem informasi krematorium digital yang membantu keluarga mengelola layanan kremasi dengan tenang, transparan, dan penuh hormat.
-            </p>
-        </div>
+                <div class="lg:col-span-1">
+                    <a href="index.php" class="flex items-center gap-2.5">
+                    <span class="grid place-items-center w-9 h-9 rounded-xl bg-accent text-white">
+                        <svg style="width:18px;height:18px"><use href="#icon-flame"/></svg>
+                    </span>
+                    <span class="font-serif text-2xl font-semibold text-secondary">AgniMukti</span>
+                    </a>
+                    <p class="mt-4 text-sm leading-relaxed text-secondary/60">
+                    Sistem informasi krematorium digital yang membantu keluarga mengelola layanan kremasi dengan tenang, transparan, dan penuh hormat.
+                    </p>
+                </div>
 
-        <div>
-            <h4 class="text-sm font-bold uppercase tracking-wider text-secondary">Navigasi</h4>
-            <ul class="mt-5 space-y-3 text-sm text-secondary/60">
-            <li><a href="index.php" class="hover:text-secondary transition-colors">Beranda</a></li>
-            <li><a href="tentang-kami.php" class="hover:text-secondary transition-colors">Tentang Kami</a></li>
-            <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket</a></li>
-            <li><a href="#kontak" class="hover:text-secondary transition-colors">Kontak</a></li>
-            </ul>
-        </div>
+                <div>
+                    <h4 class="text-sm pl-20 font-bold uppercase tracking-wider text-secondary">Navigasi</h4>
+                    <ul class="mt-5 pl-20 space-y-3 text-sm text-secondary/60">
+                        <li><a href="index.php" class="hover:text-secondary transition-colors">Beranda</a></li>
+                        <li><a href="tentang-kami.php" class="hover:text-secondary transition-colors">Tentang Kami</a></li>
+                        <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket</a></li>
+                        <li><a href="#kontak" class="hover:text-secondary transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
 
-        <div>
-            <h4 class="text-sm font-bold uppercase tracking-wider text-secondary">Layanan</h4>
-            <ul class="mt-5 space-y-3 text-sm text-secondary/60">
-            <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Dasar</a></li>
-            <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Madya</a></li>
-            <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Utama</a></li>
-            </ul>
-        </div>
+                <div>
+                    <h4 class="text-sm px-6 font-bold uppercase tracking-wider text-secondary">Layanan</h4>
+                    <ul class="mt-5 px-6 space-y-3 text-sm text-secondary/60">
+                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Dasar</a></li>
+                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Madya</a></li>
+                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Utama</a></li>
+                    </ul>
+                </div>
 
-        <div>
-            <h4 class="text-sm font-bold uppercase tracking-wider text-secondary">Kontak</h4>
-            <ul class="mt-5 space-y-3 text-sm text-secondary/60">
-            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-pin"/></svg>Jl. Mahendradatta No. 88, Denpasar, Bali</li>
-            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-phone"/></svg>+62 361 123 4567</li>
-            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-mail"/></svg>agnimukti@gmail.com</li>
-            </ul>
-        </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-secondary">Kontak</h4>
+                    <ul class="mt-5 space-y-3 text-sm text-secondary/60">
+                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-pin"/></svg>Jl. Mahendradatta No. 88, Denpasar, Bali</li>
+                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-phone"/></svg>+62 361 123 4567</li>
+                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-mail"/></svg>agnimukti@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
 
+            <div class="mt-14 pt-6 border-t border-secondary/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-secondary/50">
+                <p>&copy; 2026 AgniMukti. Seluruh hak cipta dilindungi.</p>
+                <p>Sistem Informasi Krematorium Digital</p>
+            </div>
         </div>
-
-        <div class="mt-14 pt-6 border-t border-secondary/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-secondary/50">
-        <p>&copy; 2026 AgniMukti. Seluruh hak cipta dilindungi.</p>
-        <p>Sistem Informasi Krematorium Digital</p>
-        </div>
-    </div>
     </footer>
 
 </body>
