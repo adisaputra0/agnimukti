@@ -120,8 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="text-center pt-2 border-t border-[#F5F1EC]">
                 <p class="text-xs text-[#5B4636]">
                     Sudah punya akun?
-                    <a href="login.php" class="font-semibold text-[#B86E4B] hover:underline ml-1">
-                        Masuk di sini
+                    <a href="login.php"
+                       class="font-semibold text-[#B86E4B] hover:underline">
+                        Masuk
                     </a>
                 </p>
             </div>
