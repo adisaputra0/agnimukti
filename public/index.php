@@ -132,9 +132,7 @@ foreach ($id_target as $id) {
     <!-- ============================================================ -->
     <!-- NAVBAR                                                        -->
     <!-- ============================================================ -->
-    <header>
-        <?php include 'header.php'; ?>
-    </header>
+    <?php include 'header.php'; ?>
     
 
     <main id="konten">
@@ -448,57 +446,7 @@ foreach ($id_target as $id) {
     <!-- ============================================================ -->
     <!-- FOOTER                                                        -->
     <!-- ============================================================ -->
-    <footer class="bg-primary-dark text-secondary/80">
-        <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-8">
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-
-                <div class="lg:col-span-1">
-                    <a href="index.php" class="flex items-center gap-2.5">
-                    <span class="grid place-items-center w-9 h-9 rounded-xl bg-accent text-white">
-                        <svg style="width:18px;height:18px"><use href="#icon-flame"/></svg>
-                    </span>
-                    <span class="font-serif text-2xl font-semibold text-secondary">AgniMukti</span>
-                    </a>
-                    <p class="mt-4 text-sm leading-relaxed text-secondary/60">
-                    Sistem informasi krematorium digital yang membantu keluarga mengelola layanan kremasi dengan tenang, transparan, dan penuh hormat.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="text-sm pl-20 font-bold uppercase tracking-wider text-secondary">Navigasi</h4>
-                    <ul class="mt-5 pl-20 space-y-3 text-sm text-secondary/60">
-                        <li><a href="index.php" class="hover:text-secondary transition-colors">Beranda</a></li>
-                        <li><a href="tentang-kami.php" class="hover:text-secondary transition-colors">Tentang Kami</a></li>
-                        <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket</a></li>
-                        <li><a href="#kontak" class="hover:text-secondary transition-colors">Kontak</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-sm px-6 font-bold uppercase tracking-wider text-secondary">Layanan</h4>
-                    <ul class="mt-5 px-6 space-y-3 text-sm text-secondary/60">
-                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Dasar</a></li>
-                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Madya</a></li>
-                    <li><a href="paket.php" class="hover:text-secondary transition-colors">Paket Utama</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-secondary">Kontak</h4>
-                    <ul class="mt-5 space-y-3 text-sm text-secondary/60">
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-pin"/></svg>Jl. Mahendradatta No. 88, Denpasar, Bali</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-phone"/></svg>+62 361 123 4567</li>
-                    <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0"><use href="#icon-mail"/></svg>agnimukti@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="mt-14 pt-6 border-t border-secondary/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-secondary/50">
-                <p>&copy; 2026 AgniMukti. Seluruh hak cipta dilindungi.</p>
-                <p>Sistem Informasi Krematorium Digital</p>
-            </div>
-        </div>
-    </footer>
+    <?php include './footer.php'; ?>
 
 </body>
 </html>
