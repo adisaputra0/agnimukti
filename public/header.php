@@ -20,7 +20,6 @@ $navLinks = [
     ['label' => 'Beranda',    'href' => 'index.php',   'key' => 'beranda'],
     ['label' => 'Tentang Kami','href' => 'tentang.php', 'key' => 'tentang'],
     ['label' => 'Paket',      'href' => 'paket.php',   'key' => 'paket'],
-    ['label' => 'Kontak',     'href' => 'kontak.php',  'key' => 'kontak'],
 ];
 ?>
 

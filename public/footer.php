@@ -295,7 +295,7 @@
         <ul>
           <li><a href="tentang.php">Tentang Kami</a></li>
           <li><a href="tentang.php#tim">Tim Kami</a></li>
-          <li><a href="kontak.php">Hubungi Kami</a></li>
+          <li><a href="https://wa.me/62895410558960">Hubungi Kami</a></li>
           <li><a href="login.php">Masuk Akun</a></li>
         </ul>
       </div>

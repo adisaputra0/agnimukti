@@ -1,3 +1,27 @@
+<?php
+
+require_once __DIR__ . '/../classes/PaketLayanan.php';
+require_once __DIR__ . '/../classes/KategoriPaket.php';
+
+$paketObj = new PaketLayanan();
+$kategoriObj = new KategoriPaket();
+
+// Ambil semua paket
+$result = $paketObj->getAll();
+
+$daftar_paket = [];
+
+foreach ($result as $paket) {
+
+    $kategori = $kategoriObj->getById($paket['id_kategori']);
+
+    $paket['nama_kategori'] = $kategori['status']
+        ? $kategori['data']['nama_kategori']
+        : 'Umum';
+
+    $daftar_paket[] = $paket;
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -12,7 +36,7 @@
     <?php include './header.php'; ?>
 
     <!-- ══════════════ HERO — background_1.png ══════════════ -->
-    <section class="relative overflow-hidden bg-cover bg-center" style="background-image:linear-gradient(rgba(43,34,29,.72), rgba(91,70,54,.8)), url('./assets/background_1.png')">
+    <section class="relative overflow-hidden bg-cover bg-center" style="background-image:linear-gradient(rgba(43,34,29,.72), rgba(91,70,54,.8)), url('./assets/background_5.png')">
         <div class="max-w-4xl mx-auto px-6 py-28 text-center">
             <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-5">
                 Layanan Kremasi
@@ -58,87 +82,86 @@
             <!-- Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <!-- PAKET DASAR -->
-                <div class="relative bg-white border border-[#E8DDD0] p-8 rounded-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-2">Paket 01</span>
-                    <h3 class="font-[Cormorant_Garamond,serif] text-3xl font-semibold text-[#5B4636] mb-1">Dasar</h3>
-                    <p class="text-xs leading-relaxed text-[#5B4636]/70 mb-6">Layanan kremasi esensial dengan administrasi lengkap dan proses yang bermartabat.</p>
+                <?php if (!empty($daftar_paket)): ?>
 
-                    <div class="mb-6 pb-6 border-b border-[#E8DDD0]">
-                        <span class="font-[Cormorant_Garamond,serif] text-4xl font-semibold text-[#2B221D]">Rp 3,5 Jt</span>
-                        <span class="text-xs text-[#5B4636] ml-1">/layanan</span>
+                    <?php
+                    $counter = 1;
+                    foreach ($daftar_paket as $paket):
+
+                        $nomor_paket = str_pad($counter, 2, '0', STR_PAD_LEFT);
+
+                        // Paket kedua dijadikan featured
+                        $is_populer = ($counter == 2);
+
+                        $fasilitas = array_filter(
+                            array_map('trim', explode(',', $paket['fasilitas']))
+                        );
+                    ?>
+
+                        <div class="relative <?= $is_populer
+                            ? 'bg-[#2B221D] border border-[#B86E4B]'
+                            : 'bg-white border border-[#E8DDD0]' ?>
+                            p-8 rounded-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+
+                            <?php if ($is_populer): ?>
+                                <span class="absolute -top-px right-6 bg-[#B86E4B] text-white text-[0.65rem] font-semibold tracking-[0.12em] uppercase px-3 py-1 rounded-b">
+                                    Terpopuler
+                                </span>
+                            <?php endif; ?>
+
+                            <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-2">
+                                <?= htmlspecialchars($paket['nama_kategori']) ?> • Paket <?= $nomor_paket ?>
+                            </span>
+
+                            <h3 class="font-[Cormorant_Garamond,serif] text-3xl font-semibold <?= $is_populer ? 'text-[#E8DDD0]' : 'text-[#5B4636]' ?> mb-1">
+                                <?= htmlspecialchars($paket['nama_paket']) ?>
+                            </h3>
+
+                            <p class="text-xs leading-relaxed <?= $is_populer ? 'text-[#E8DDD0]/60' : 'text-[#5B4636]/70' ?> mb-6">
+                                Paket layanan kremasi yang dirancang untuk memberikan pelayanan terbaik kepada keluarga.
+                            </p>
+
+                            <div class="mb-6 pb-6 <?= $is_populer ? 'border-b border-[#E8DDD0]/20' : 'border-b border-[#E8DDD0]' ?>">
+                                <span class="font-[Cormorant_Garamond,serif] text-4xl font-semibold <?= $is_populer ? 'text-[#E8DDD0]' : 'text-[#2B221D]' ?>">
+                                    Rp <?= number_format($paket['harga'], 0, ',', '.') ?>
+                                </span>
+                            </div>
+
+                            <ul class="space-y-3 text-sm <?= $is_populer ? 'text-[#E8DDD0]' : 'text-[#2B221D]' ?> mb-8">
+
+                                <?php foreach ($fasilitas as $item): ?>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-[#B86E4B]">✦</span>
+                                        <?= htmlspecialchars($item) ?>
+                                    </li>
+                                <?php endforeach; ?>
+
+                            </ul>
+
+                            <a href="./register.php?id_paket=<?= $paket['id_paket'] ?>"
+                                class="block w-full text-center
+                                <?= $is_populer
+                                    ? 'bg-[#B86E4B] hover:bg-[#a05c3a] text-white'
+                                    : 'border border-[#5B4636] text-[#5B4636] hover:bg-[#5B4636] hover:text-[#E8DDD0]' ?>
+                                text-sm font-medium tracking-wide py-3 px-6 rounded-sm transition-colors">
+
+                                Pilih Paket
+                            </a>
+
+                        </div>
+
+                    <?php
+                        $counter++;
+                    endforeach;
+                    ?>
+
+                <?php else: ?>
+
+                    <div class="col-span-3 text-center py-10 text-[#5B4636]">
+                        Belum ada paket layanan tersedia.
                     </div>
 
-                    <ul class="space-y-3 text-sm text-[#2B221D] mb-8">
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Proses kremasi standar</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Wadah abu jenazah dasar</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Notifikasi status real-time</li>
-                        <li class="flex items-start gap-2 opacity-40"><span class="text-[#BFC3B1]">–</span> Ruang tunggu keluarga</li>
-                        <li class="flex items-start gap-2 opacity-40"><span class="text-[#BFC3B1]">–</span> Upacara pelepasan</li>
-                    </ul>
-
-                    <a href="./register.php"
-                       class="block w-full text-center border border-[#5B4636] text-[#5B4636] hover:bg-[#5B4636] hover:text-[#E8DDD0] text-sm font-medium tracking-wide py-3 px-6 rounded-sm transition-colors">
-                        Pilih Paket Dasar
-                    </a>
-                </div>
-
-                <!-- PAKET MADYA (FEATURED) -->
-                <div class="relative bg-[#2B221D] border border-[#B86E4B] p-8 rounded-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <!-- Badge -->
-                    <span class="absolute -top-px right-6 bg-[#B86E4B] text-white text-[0.65rem] font-semibold tracking-[0.12em] uppercase px-3 py-1 rounded-b">
-                        Terpopuler
-                    </span>
-                    <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-2">Paket 02</span>
-                    <h3 class="font-[Cormorant_Garamond,serif] text-3xl font-semibold text-[#E8DDD0] mb-1">Madya</h3>
-                    <p class="text-xs leading-relaxed text-[#E8DDD0]/60 mb-6">Keseimbangan antara kesederhanaan dan penghormatan yang lengkap bagi almarhum.</p>
-
-                    <div class="mb-6 pb-6 border-b border-[#E8DDD0]/20">
-                        <span class="font-[Cormorant_Garamond,serif] text-4xl font-semibold text-[#E8DDD0]">Rp 6,5 Jt</span>
-                        <span class="text-xs text-[#E8DDD0]/60 ml-1">/layanan</span>
-                    </div>
-
-                    <ul class="space-y-3 text-sm text-[#E8DDD0] mb-8">
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Proses kremasi prioritas</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Wadah abu jenazah premium</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Notifikasi status real-time</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Ruang tunggu keluarga</li>
-                        <li class="flex items-start gap-2 opacity-40"><span class="text-[#BFC3B1]">–</span> Upacara pelepasan</li>
-                    </ul>
-
-                    <a href="./register.php"
-                       class="block w-full text-center bg-[#B86E4B] hover:bg-[#a05c3a] text-white text-sm font-semibold tracking-wide py-3 px-6 rounded-sm transition-colors">
-                        Pilih Paket Madya
-                    </a>
-                </div>
-
-                <!-- PAKET UTAMA -->
-                <div class="relative bg-white border border-[#E8DDD0] p-8 rounded-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-2">Paket 03</span>
-                    <h3 class="font-[Cormorant_Garamond,serif] text-3xl font-semibold text-[#5B4636] mb-1">Utama</h3>
-                    <p class="text-xs leading-relaxed text-[#5B4636]/70 mb-6">Layanan kremasi paling lengkap dengan upacara pelepasan dan pendampingan penuh.</p>
-
-                    <div class="mb-6 pb-6 border-b border-[#E8DDD0]">
-                        <span class="font-[Cormorant_Garamond,serif] text-4xl font-semibold text-[#2B221D]">Rp 11 Jt</span>
-                        <span class="text-xs text-[#5B4636] ml-1">/layanan</span>
-                    </div>
-
-                    <ul class="space-y-3 text-sm text-[#2B221D] mb-8">
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Proses kremasi prioritas</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Wadah abu jenazah eksklusif</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Notifikasi status real-time</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Ruang tunggu keluarga VIP</li>
-                        <li class="flex items-start gap-2"><span class="text-[#B86E4B]">✦</span> Upacara pelepasan</li>
-                    </ul>
-
-                    <a href="./register.php"
-                       class="block w-full text-center border border-[#5B4636] text-[#5B4636] hover:bg-[#5B4636] hover:text-[#E8DDD0] text-sm font-medium tracking-wide py-3 px-6 rounded-sm transition-colors">
-                        Pilih Paket Utama
-                    </a>
-                </div>
+                <?php endif; ?>
 
             </div>
         </div>
@@ -171,75 +194,143 @@
                                 Fitur Layanan
                             </th>
                             <th class="bg-[#2B221D] text-[#E8DDD0] text-center px-5 py-4 border-b border-[#E8DDD0] min-w-[130px]">
-                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Dasar</div>
-                                <div class="text-xs opacity-70 font-normal mt-1">Rp 3,5 Jt</div>
+                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Paket Pitra Pradana</div>
+                                <div class="text-xs opacity-70 font-normal mt-1">Rp 3 Jt</div>
                             </th>
                             <th class="bg-[#B86E4B] text-white text-center px-5 py-4 border-b border-[#E8DDD0] min-w-[130px]">
-                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Madya</div>
-                                <div class="text-xs opacity-80 font-normal mt-1">Rp 6,5 Jt</div>
+                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Paket Yadnya Madya</div>
+                                <div class="text-xs opacity-80 font-normal mt-1">Rp 4 Jt</div>
                                 <div class="text-xs font-semibold mt-1 text-yellow-200">★ Terpopuler</div>
                             </th>
                             <th class="bg-[#2B221D] text-[#E8DDD0] text-center px-5 py-4 border-b border-[#E8DDD0] min-w-[130px]">
-                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Utama</div>
-                                <div class="text-xs opacity-70 font-normal mt-1">Rp 11 Jt</div>
+                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Paket Pitra Utama</div>
+                                <div class="text-xs opacity-70 font-normal mt-1">Rp 6 Jt</div>
+                            </th>
+                            <th class="bg-[#2B221D] text-[#E8DDD0] text-center px-5 py-4 border-b border-[#E8DDD0] min-w-[130px]">
+                                <div class="font-[Cormorant_Garamond,serif] text-lg font-semibold">Paket Agni Mukti Utama</div>
+                                <div class="text-xs opacity-70 font-normal mt-1">Rp 8 Jt</div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Proses kremasi</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Standar</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Prioritas</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Prioritas</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Jenis Layanan Kremasi
+                            </td>
+                            <td class="text-center px-5 py-4">Standar</td>
+                            <td class="text-center px-5 py-4">Standar</td>
+                            <td class="text-center px-5 py-4">Premium</td>
+                            <td class="text-center px-5 py-4">VIP</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Administrasi dokumen resmi</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Tempat Abu
+                            </td>
+                            <td class="text-center px-5 py-4">Sederhana</td>
+                            <td class="text-center px-5 py-4">Keluarga</td>
+                            <td class="text-center px-5 py-4">Premium</td>
+                            <td class="text-center px-5 py-4">Premium</td>
+                        </tr>
+
+                        <tr class="border-b border-[#E8DDD0]">
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Sertifikat Kremasi
+                            </td>
+                            <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Notifikasi status real-time</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Penanganan Jenazah
+                            </td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
-                            <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
+                            <td class="text-center px-5 py-4">Prioritas</td>
+                            <td class="text-center px-5 py-4">Prioritas</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Wadah abu jenazah</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Dasar</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Premium</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">Eksklusif</td>
-                        </tr>
-                        <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Ruang tunggu keluarga</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Ruang Tunggu Keluarga
+                            </td>
                             <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
-                            <td class="text-center text-sm text-[#2B221D] px-5 py-4">VIP</td>
+                            <td class="text-center px-5 py-4">Eksklusif</td>
+                            <td class="text-center px-5 py-4">VIP</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Upacara pelepasan</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Dokumentasi Foto
+                            </td>
                             <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
-                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
-                            <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
+                            <td class="text-center px-5 py-4">Dasar</td>
+                            <td class="text-center px-5 py-4">Profesional</td>
+                            <td class="text-center px-5 py-4">Profesional</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Pendampingan keluarga</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Dokumentasi Video
+                            </td>
                             <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
                             <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
-                            <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
+                            <td class="text-center px-5 py-4">Video Singkat</td>
+                            <td class="text-center px-5 py-4">Video Lengkap</td>
                         </tr>
+
                         <tr class="border-b border-[#E8DDD0]">
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">Laporan dokumentasi digital</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Konsultasi Keluarga / Prosesi
+                            </td>
+                            <td class="text-center px-5 py-4">Administrasi</td>
+                            <td class="text-center px-5 py-4">Prosesi</td>
+                            <td class="text-center px-5 py-4">Keluarga</td>
+                            <td class="text-center px-5 py-4">Pendampingan Penuh</td>
+                        </tr>
+
+                        <tr class="border-b border-[#E8DDD0]">
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Pengantaran Abu
+                            </td>
+                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
+                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
                             <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
+                        </tr>
+
+                        <tr class="border-b border-[#E8DDD0]">
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-medium text-sm px-5 py-4">
+                                Konsumsi Keluarga
+                            </td>
+                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
+                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
+                            <td class="text-center text-[#BFC3B1] px-5 py-4">–</td>
                             <td class="text-center text-[#B86E4B] px-5 py-4">✦</td>
                         </tr>
+
                         <tr>
-                            <td class="bg-[#F4EFE8] text-[#5B4636] font-bold text-sm px-5 py-4">Total Harga</td>
-                            <td class="text-center font-bold text-sm text-[#2B221D] px-5 py-4">Rp 3,5 Jt</td>
-                            <td class="text-center font-bold text-sm text-[#B86E4B] px-5 py-4">Rp 6,5 Jt</td>
-                            <td class="text-center font-bold text-sm text-[#2B221D] px-5 py-4">Rp 11 Jt</td>
+                            <td class="bg-[#F4EFE8] text-[#5B4636] font-bold text-sm px-5 py-4">
+                                Total Harga
+                            </td>
+                            <td class="text-center font-bold text-sm text-[#2B221D] px-5 py-4">
+                                Rp 3.000.000
+                            </td>
+                            <td class="text-center font-bold text-sm text-[#2B221D] px-5 py-4">
+                                Rp 4.000.000
+                            </td>
+                            <td class="text-center font-bold text-sm text-[#2B221D] px-5 py-4">
+                                Rp 6.000.000
+                            </td>
+                            <td class="text-center font-bold text-sm text-[#B86E4B] px-5 py-4">
+                                Rp 8.000.000
+                            </td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -268,7 +359,7 @@
                    class="inline-block bg-[#B86E4B] hover:bg-[#a05c3a] text-white text-sm font-semibold tracking-wide py-3 px-8 rounded-sm transition-colors">
                     Daftar Layanan
                 </a>
-                <a href="./kontak.php"
+                <a href="https://wa.me/62895410558960"
                    class="inline-block border border-[#E8DDD0] text-[#E8DDD0] hover:bg-[#E8DDD0] hover:text-[#2B221D] text-sm font-medium tracking-wide py-3 px-8 rounded-sm transition-colors">
                     Hubungi Kami
                 </a>

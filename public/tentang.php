@@ -14,7 +14,7 @@
     <?php include './header.php'; ?>
 
     <!-- HERO — background_1.png -->
-    <section class="relative overflow-hidden bg-[#5B4636] bg-cover bg-center" style="background-image:linear-gradient(to bottom, rgba(43,34,29,.78), rgba(91,70,54,.85)), url('./assets/background_1.png')">
+    <section class="relative overflow-hidden bg-[#5B4636] bg-cover bg-center" style="background-image:linear-gradient(to bottom, rgba(43,34,29,.78), rgba(91,70,54,.85)), url('./assets/background_2.png')">
         <div class="absolute rounded-full border border-[#B86E4B] opacity-25 w-[420px] h-[420px] -top-40 -right-28"></div>
         <div class="absolute rounded-full border border-[#B86E4B] opacity-25 w-[280px] h-[280px] -bottom-36 -left-20"></div>
 
