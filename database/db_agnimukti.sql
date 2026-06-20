@@ -180,39 +180,39 @@ INSERT INTO paket_layanan
 VALUES
 (
     1,
-    'Paket Kremasi Standar',
+    'Paket Pitra Pradana',
     3000000,
-    'Kremasi, sertifikat kremasi, tempat abu sederhana'
+    'Layanan kremasi standar, tempat abu sederhana, sertifikat kremasi, konsultasi administrasi, penanganan jenazah, koordinasi jadwal kremasi'
 ),
 (
     1,
-    'Paket Kremasi Keluarga',
+    'Paket Yadnya Madya',
     4000000,
-    'Kremasi, ruang tunggu keluarga, tempat abu'
+    'Layanan kremasi standar, tempat abu keluarga, sertifikat kremasi, ruang tunggu keluarga, penanganan jenazah, konsultasi prosesi, dokumentasi foto dasar'
 ),
 (
     2,
-    'Paket Kremasi Lengkap',
+    'Paket Pitra Utama',
     6000000,
-    'Kremasi, dokumentasi foto, tempat abu premium'
+    'Layanan kremasi premium, tempat abu premium, sertifikat kremasi, ruang tunggu eksklusif, dokumentasi foto profesional, dokumentasi video singkat, konsultasi keluarga, penanganan prioritas'
 ),
 (
     2,
-    'Paket Kremasi VIP',
+    'Paket Agni Mukti Utama',
     8000000,
-    'Kremasi VIP, dokumentasi foto dan video, pengantaran abu'
+    'Layanan kremasi VIP, tempat abu premium, sertifikat kremasi, ruang tunggu VIP, dokumentasi foto profesional, dokumentasi video lengkap, pengantaran abu, pendampingan prosesi, penanganan prioritas, konsumsi keluarga'
 ),
 (
     3,
-    'Dokumentasi Foto & Video',
+    'Dokumentasi Prosesi Yadnya',
     500000,
-    'Dokumentasi selama prosesi kremasi'
+    'Dokumentasi foto profesional, dokumentasi video prosesi, file digital resolusi tinggi, penyimpanan cloud selama 30 hari'
 ),
 (
     3,
-    'Pengantaran Abu',
+    'Layanan Pengantaran Tirta Abu',
     750000,
-    'Layanan pengantaran abu ke alamat keluarga'
+    'Pengantaran abu ke alamat keluarga, kemasan abu eksklusif, dokumentasi serah terima, layanan area Denpasar dan sekitarnya'
 );
 
 -- =====================================
