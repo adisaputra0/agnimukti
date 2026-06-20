@@ -7,6 +7,7 @@ USE agnimukti;
 CREATE TABLE users (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
+    foto_url TEXT NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('super_admin', 'admin','pemohon') NOT NULL DEFAULT 'pemohon',
@@ -129,7 +130,7 @@ VALUES
 (
     'Administrator',
     'admin',
-    'admin123',
+    '$2y$10$nxet7vRO1PmV7AqN5ytvdeZZbKSKfim4t7zU2URMlNYPJYtw.am36',
     'super_admin',
     '081234567890',
     'Denpasar, Bali'
@@ -137,7 +138,7 @@ VALUES
 (
     'I Made Wijaya',
     'madewijaya',
-    '123456',
+    '$2y$10$nxet7vRO1PmV7AqN5ytvdeZZbKSKfim4t7zU2URMlNYPJYtw.am36',
     'pemohon',
     '081111111111',
     'Denpasar, Bali'
@@ -145,7 +146,7 @@ VALUES
 (
     'Ni Luh Sari',
     'niluhsari',
-    '123456',
+    '$2y$10$nxet7vRO1PmV7AqN5ytvdeZZbKSKfim4t7zU2URMlNYPJYtw.am36',
     'pemohon',
     '082222222222',
     'Badung, Bali'

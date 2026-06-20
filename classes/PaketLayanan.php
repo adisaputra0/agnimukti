@@ -26,7 +26,7 @@ class PaketLayanan
                 FROM paket_layanan p
                 JOIN kategori_paket k
                     ON p.id_kategori = k.id_kategori
-                ORDER BY p.id_paket DESC";
+                ORDER BY p.id_paket ASC";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

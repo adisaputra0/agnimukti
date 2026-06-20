@@ -233,6 +233,10 @@ $summary = $pembayaranModel->getReportSummary();
 
 <script>
     window.print();
+
+    window.addEventListener('afterprint', () => {
+        window.close();
+    });
 </script>
 
 </body>
