@@ -11,9 +11,9 @@
 
     <?php include './header.php'; ?>
 
-    <!-- ══════════════ HERO ══════════════ -->
-    <section class="bg-[#2B221D] py-28 px-6">
-        <div class="max-w-4xl mx-auto text-center">
+    <!-- ══════════════ HERO — background_1.png ══════════════ -->
+    <section class="relative overflow-hidden bg-cover bg-center" style="background-image:linear-gradient(rgba(43,34,29,.72), rgba(91,70,54,.8)), url('./assets/background_1.png')">
+        <div class="max-w-4xl mx-auto px-6 py-28 text-center">
             <span class="inline-block text-[#B86E4B] text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-5">
                 Layanan Kremasi
             </span>
@@ -33,8 +33,8 @@
 
 
     <!-- ══════════════ LIST PAKET ══════════════ -->
-    <section id="daftar-paket" class="py-24 px-6 bg-[#F4EFE8]">
-        <div class="max-w-6xl mx-auto">
+    <section id="daftar-paket" class="bg-[#F4EFE8]">
+        <div class="max-w-6xl mx-auto px-6 py-24">
 
             <!-- Heading -->
             <div class="text-center mb-16">
@@ -146,8 +146,8 @@
 
 
     <!-- ══════════════ PERBANDINGAN ══════════════ -->
-    <section id="perbandingan" class="py-24 px-6 bg-[#E8DDD0]">
-        <div class="max-w-5xl mx-auto">
+    <section id="perbandingan" class="bg-[#E8DDD0]">
+        <div class="max-w-5xl mx-auto px-6 py-24">
 
             <!-- Heading -->
             <div class="text-center mb-14">
@@ -164,7 +164,7 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full bg-white border-collapse rounded-sm overflow-hidden">
+                <table class="w-full bg-white border-collapse rounded-sm overflow-hidden shadow-sm">
                     <thead>
                         <tr>
                             <th class="bg-[#F4EFE8] text-[#5B4636] font-semibold text-sm text-left px-5 py-4 border-b border-[#E8DDD0] min-w-[200px]">
@@ -251,9 +251,9 @@
     </section>
 
 
-    <!-- ══════════════ CTA ══════════════ -->
-    <section class="bg-[#5B4636] py-20 px-6">
-        <div class="max-w-2xl mx-auto text-center">
+    <!-- ══════════════ CTA — backgound_4.png ══════════════ -->
+    <section class="relative bg-cover bg-center" style="background-image:linear-gradient(rgba(91,70,54,.82), rgba(43,34,29,.85)), url('./assets/backgound_4.png')">
+        <div class="max-w-2xl mx-auto px-6 py-20 text-center">
             <span class="inline-block text-[#E8DDD0]/60 text-[0.7rem] font-semibold tracking-[0.18em] uppercase mb-4">
                 Mulai Sekarang
             </span>
