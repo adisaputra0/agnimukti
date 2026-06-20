@@ -268,6 +268,7 @@ class Users {
             ) {
                 $_SESSION['user']['nama'] = $nama;
                 $_SESSION['user']['username'] = $username;
+                $_SESSION['user']['foto_url'] = $foto_url;
             }
 
             return [

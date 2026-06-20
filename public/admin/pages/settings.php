@@ -26,7 +26,10 @@
             $alertMessage = $result['message'];
             
             if ($alertStatus) {
-                $authUser['data']['nama'] = $nama;
+                $authUser = $auth->checkLogin();
+                echo "<script>
+                window.location='?page=settings';
+                </script>";
             }
 
         } elseif (isset($_POST['action_type']) && $_POST['action_type'] === 'update_password') {
