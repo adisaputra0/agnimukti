@@ -109,6 +109,37 @@ class KategoriPaket {
             ];
         }
     }
+    
+    public function getById($id_kategori) {
+        try {
+            $query = "SELECT * FROM kategori_paket WHERE id_kategori = :id_kategori";
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(':id_kategori', $id_kategori, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$data) {
+                return [
+                    "status" => false,
+                    "message" => "Kategori tidak ditemukan"
+                ];
+            }
+
+            return [
+                "status" => true,
+                "message" => "Data kategori berhasil diambil",
+                "data" => $data
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                "status" => false,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }
 
 ?>

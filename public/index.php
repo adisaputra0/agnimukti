@@ -1,3 +1,32 @@
+<?php
+
+require_once __DIR__ . '/../classes/PaketLayanan.php';
+require_once __DIR__ . '/../classes/KategoriPaket.php';
+$paketObj = new PaketLayanan();
+$kategoriObj = new KategoriPaket();
+
+// Mengambil data secara spesifik menggunakan getById untuk ID 1, 2, dan 3
+$id_target = [1, 2, 3];
+$daftar_paket = [];
+
+foreach ($id_target as $id) {
+    $data_paket = $paketObj->getById($id);
+    if ($data_paket) {
+        // Ambil data kategori berdasarkan id_kategori yang ada di dalam paket
+        $kategori_info = $kategoriObj->getById($data_paket['id_kategori']);
+        
+        // Jika kategori ditemukan, sisipkan nama kategorinya ke dalam array paket
+        if ($kategori_info['status']) {
+            $data_paket['nama_kategori'] = $kategori_info['data']['nama_kategori'];
+        } else {
+            $data_paket['nama_kategori'] = 'Umum'; // Fallback jika tidak ditemukan
+        }
+        
+        $daftar_paket[] = $data_paket;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -279,49 +308,58 @@
                 </div>
 
                 <div class="mt-14 grid lg:grid-cols-3 gap-6 lg:gap-7 items-start">
+                    <?php 
+                    if (!empty($daftar_paket)): 
+                        $counter = 1;
+                        foreach ($daftar_paket as $paket): 
+                            $nomor_paket = str_pad($counter, 2, '0', STR_PAD_LEFT);
+                            $is_populer = ($paket['nama_paket'] === 'Madya' || $paket['id_paket'] == 2); 
 
-                    <!-- Paket 01 -->
-                    <div class="rounded-4xl bg-white p-9 shadow-card h-full">
-                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 01</span>
-                        <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Dasar</h3>
-                        <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi esensial dengan administrasi lengkap dan proses yang bermartabat.</p>
-                        <div class="mt-7 h-px bg-primary/10"></div>
-                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi standar</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah dasar</li>
-                        </ul>
-                        <p class="mt-5 text-xs font-semibold text-ink-muted">+1 fasilitas lainnya</p>
-                    </div>
+                            // Pecah fasilitas berdasarkan koma
+                            $fasilitas_list = array_filter(array_map('trim', explode(',', $paket['fasilitas'])));
+                    ?>
+                            
+                            <div class="<?= $is_populer ? 'relative rounded-4xl bg-primary p-9 shadow-soft h-full lg:-translate-y-3' : 'rounded-4xl bg-white p-9 shadow-card h-full' ?>">
+                                
+                                <?php if ($is_populer): ?>
+                                    <span class="absolute top-7 right-7 rounded-full bg-accent px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Terpopuler</span>
+                                <?php endif; ?>
 
-                    <!-- Paket 02 - populer -->
-                    <div class="relative rounded-4xl bg-primary p-9 shadow-soft h-full lg:-translate-y-3">
-                        <span class="absolute top-7 right-7 rounded-full bg-accent px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Terpopuler</span>
-                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent-light">Paket 02</span>
-                        <h3 class="mt-2 font-serif font-semibold text-3xl text-secondary">Madya</h3>
-                        <p class="mt-3 text-sm text-secondary/70 leading-relaxed">Keseimbangan antara kesederhanaan dan penghormatan yang lengkap bagi almarhum.</p>
-                        <div class="mt-7 h-px bg-white/10"></div>
-                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-secondary">
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent-light"><use href="#icon-sparkle"/></svg>Wadah abu jenazah premium</li>
-                        </ul>
-                        <p class="mt-5 text-xs font-semibold text-secondary/60">+2 fasilitas lainnya</p>
-                    </div>
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] <?= $is_populer ? 'text-accent-light' : 'text-accent' ?>">
+                                    <?= htmlspecialchars($paket['nama_kategori']) ?> • Paket <?= $nomor_paket ?>
+                                </span>
+                                
+                                <h3 class="mt-2 font-serif font-semibold text-3xl <?= $is_populer ? 'text-secondary' : 'text-ink' ?>">
+                                    <?= htmlspecialchars($paket['nama_paket']) ?>
+                                </h3>
+                                
+                                <p class="mt-2 text-lg font-bold <?= $is_populer ? 'text-white' : 'text-accent' ?>">
+                                    Rp <?= number_format($paket['harga'], 0, ',', '.') ?>
+                                </p>
 
-                    <!-- Paket 03 -->
-                    <div class="rounded-4xl bg-white p-9 shadow-card h-full">
-                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Paket 03</span>
-                        <h3 class="mt-2 font-serif font-semibold text-3xl text-ink">Utama</h3>
-                        <p class="mt-3 text-sm text-ink-muted leading-relaxed">Layanan kremasi paling lengkap dengan upacara pelepasan dan pendampingan penuh.</p>
-                        <div class="mt-7 h-px bg-primary/10"></div>
-                        <ul class="mt-6 space-y-3.5 text-sm font-medium text-ink">
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Proses kremasi prioritas</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Administrasi dokumen resmi</li>
-                        <li class="flex items-start gap-2.5"><svg class="w-4 h-4 mt-0.5 shrink-0 text-accent"><use href="#icon-sparkle"/></svg>Wadah abu jenazah eksklusif</li>
-                        </ul>
-                        <p class="mt-5 text-xs font-semibold text-ink-muted">+3 fasilitas lainnya</p>
-                    </div>
+                                <div class="mt-5 h-px <?= $is_populer ? 'bg-white/10' : 'bg-primary/10' ?>"></div>
+                                
+                                <ul class="mt-6 space-y-3.5 text-sm font-medium <?= $is_populer ? 'text-secondary' : 'text-ink' ?>">
+                                    <?php foreach ($fasilitas_list as $fs): ?>
+                                        <li class="flex items-start gap-2.5">
+                                            <svg class="w-4 h-4 mt-0.5 shrink-0 <?= $is_populer ? 'text-accent-light' : 'text-accent' ?>">
+                                                <use href="#icon-sparkle"/>
+                                            </svg>
+                                            <?= htmlspecialchars($fs) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+
+                    <?php 
+                        $counter++;
+                        endforeach; 
+                    else:
+                    ?>
+                        <div class="col-span-3 text-center py-10 text-ink-muted">
+                            Gagal memuat paket layanan (ID 1, 2, 3 tidak ditemukan).
+                        </div>
+                    <?php endif; ?>
                 </div>
                 
                 <div class="mt-14 w-full text-center">
