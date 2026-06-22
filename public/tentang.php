@@ -129,26 +129,43 @@
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-8">
                 <div class="text-center">
-                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1]"></div>
-                    <h3 class="font-['Fraunces'] font-medium">Nama Anggota</h3>
+                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
+                        <img src="assets/dev-1.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-['Fraunces'] font-medium">Adi Saputra</h3>
                     <p class="text-sm text-[#B86E4B]">Project Lead</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1]"></div>
-                    <h3 class="font-['Fraunces'] font-medium">Nama Anggota</h3>
-                    <p class="text-sm text-[#B86E4B]">Backend Developer</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1]"></div>
-                    <h3 class="font-['Fraunces'] font-medium">Nama Anggota</h3>
+                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
+                        <img src="assets/dev-2.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-['Fraunces'] font-medium">Putra Krishna</h3>
                     <p class="text-sm text-[#B86E4B]">UI/UX Designer</p>
                 </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
+                        <img src="assets/dev-3.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-['Fraunces'] font-medium">Putu Widhyatama</h3>
+                    <p class="text-sm text-[#B86E4B]">Frontend Developer</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
+                        <img src="assets/dev-4.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-['Fraunces'] font-medium">Arya Putra</h3>
+                    <p class="text-sm text-[#B86E4B]">Frontend Developer</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
+                        <img src="assets/dev-5.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-['Fraunces'] font-medium">Angga Saputra</h3>
+                    <p class="text-sm text-[#B86E4B]">Backend Developer</p>
+                </div>
             </div>
-            <p class="text-center text-xs mt-8 text-[#5B4636] opacity-70">
-                *Ganti nama dan foto anggota tim sesuai data tim kamu.
-            </p>
         </div>
     </section>
 
