@@ -7,7 +7,7 @@ USE agnimukti;
 CREATE TABLE users (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
-    foto_url TEXT NOT NULL,
+    foto_url TEXT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('super_admin', 'admin','pemohon') NOT NULL DEFAULT 'pemohon',

@@ -133,9 +133,9 @@ Di dalam database bawaan `db_agnimukti.sql`, telah disediakan beberapa akun untu
 
 | Role | Username | Password |
 |---|---|---|
-| **Super Admin** | `admin` | `admin` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
-| **Pemohon (User 1)** | `madewijaya` | `admin` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
-| **Pemohon (User 2)** | `niluhsari` | `admin` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
+| **Super Admin** | `admin` | `123455678` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
+| **Pemohon (User 1)** | `madewijaya` | `123455678` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
+| **Pemohon (User 2)** | `niluhsari` | `123455678` (atau silakan daftarkan user baru/gunakan password terenkripsi) |
 
 *(Catatan: Semua akun dummy menggunakan hash password default `$2y$10$nxet7vRO1PmV7AqN5ytvdeZZbKSKfim4t7zU2URMlNYPJYtw.am36` yang terenkripsi)*
 
@@ -165,7 +165,7 @@ Skema database terdiri dari 5 tabel utama dengan relasi sebagai berikut:
 Menyimpan informasi pengguna sistem.
 * `id_user` (INT, Primary Key, Auto Increment)
 * `nama` (VARCHAR(100), NOT NULL)
-* `foto_url` (TEXT, NOT NULL)
+* `foto_url` (TEXT)
 * `username` (VARCHAR(50), NOT NULL, UNIQUE)
 * `password` (VARCHAR(255), NOT NULL)
 * `role` (ENUM('super_admin', 'admin', 'pemohon'), NOT NULL, DEFAULT 'pemohon')
