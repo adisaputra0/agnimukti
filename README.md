@@ -231,11 +231,20 @@ Menyimpan data transaksi pembayaran untuk pendaftaran.
 
 ## Kontributor
 
-* **Pengembang Utama**: Belum tersedia / ditentukan
-* **Organisasi**: Tim Agnimukti (Krematorium Digital)
+### Tim Agnimukti (Krematorium Digital)
+
+- Adi Saputra — GitHub: https://github.com/adisaputra0
+- Angga Saputra — GitHub: https://github.com/anggasaputra25
+- Putra Krishna — GitHub: https://github.com/PutraKrishna
+- Putu Widhyatama — GitHub: https://github.com/Voidxy6475
+- Arya Putra — GitHub: https://github.com/AryaPutra-35
 
 ---
 
 ## Lisensi
 
-Proyek ini tidak memiliki lisensi khusus yang dilampirkan (Unlicensed / Hak cipta dilindungi oleh pemilik repositori). Penggunaan di luar kebutuhan edukasi atau internal memerlukan izin tertulis dari pengembang.
+Proyek ini dikembangkan untuk keperluan akademik sebagai tugas mata kuliah Pemrograman Web (PWEB).
+
+Hak cipta © 2026 Tim Agnimukti. Seluruh kode sumber dan dokumentasi dalam repositori ini digunakan untuk tujuan pembelajaran, pengembangan, dan evaluasi akademik.
+
+Untuk penggunaan di luar kebutuhan akademik, diharapkan menghubungi pengembang atau kontributor terkait terlebih dahulu.
