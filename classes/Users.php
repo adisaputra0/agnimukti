@@ -119,8 +119,8 @@ class Users {
         $stmt = $this->conn->prepare($query);
 
         return $stmt->execute($params);
-        }
-        public function delete($id_user) {
+    }
+    public function delete($id_user) {
 
         $query = "DELETE FROM users WHERE id_user = ?";
 

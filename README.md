@@ -221,11 +221,11 @@ Menyimpan data transaksi pembayaran untuk pendaftaran.
 
 | Halaman Utama (Landing Page) | Halaman Login Pengguna |
 |---|---|
-| `![Landing Page](https://via.placeholder.com/600x400?text=Landing+Page+Agnimukti)` | `![Login Page](https://via.placeholder.com/600x400?text=Login+Page+Agnimukti)` |
+| ![Landing Page](screenshots/beranda.png) | ![Login Page](screenshots/login.png) |
 
 | Dashboard Admin | Form Pendaftaran Kremasi |
 |---|---|
-| `![Dashboard Admin](https://via.placeholder.com/600x400?text=Dashboard+Admin)` | `![Pendaftaran](https://via.placeholder.com/600x400?text=Form+Pendaftaran+Pemohon)` |
+| ![Dashboard Admin](screenshots/dashboard.png) | ![Pendaftaran](screenshots/pendaftaran.png) |
 
 ---
 
