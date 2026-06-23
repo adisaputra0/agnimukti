@@ -1,7 +1,7 @@
 # Agnimukti - Krematorium Digital Bali
 
 Agnimukti adalah sistem informasi berbasis web yang dirancang khusus untuk memfasilitasi manajemen pendaftaran, prosesi, dan administrasi upacara kremasi (krematorium) di Bali secara digital. Sistem ini menghubungkan masyarakat (pemohon) dengan pihak pengelola krematorium secara transparan, mulai dari pemilihan paket layanan, penginputan data almarhum, hingga pelacakan status pembayaran dan prosesi.
-
+ 
 ---
 
 ## Fitur Utama
