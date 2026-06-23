@@ -126,8 +126,8 @@ foreach ($id_target as $id) {
     </defs>
     </svg>
 
-    <!-- Skip link (aksesibilitas) -->
-    <a href="#konten" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-full">Lewati ke konten</a>
+ 
+ 
 
     <!-- ============================================================ -->
     <!-- NAVBAR                                                        -->

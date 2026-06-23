@@ -153,7 +153,7 @@
                 </div>
                 <div class="text-center">
                     <div class="w-24 h-24 mx-auto rounded-full mb-4 bg-[#BFC3B1] overflow-hidden">
-                        <img src="assets/dev-4.jpg" alt="" class="w-full h-full object-cover">
+                        <img src="assets/dev-4.jpeg" alt="" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-['Fraunces'] font-medium">Arya Putra</h3>
                     <p class="text-sm text-[#B86E4B]">Frontend Developer</p>
