@@ -265,11 +265,8 @@
 
       <!-- Logo block -->
       <div class="agni-footer-logo-block">
-        <div class="agni-footer-logo-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C12 2 8 7 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 10 14 7 12 2Z" fill="#fff" opacity="0.9"/>
-            <path d="M12 16C10.34 16 9 17.34 9 19C9 20.66 10.34 22 12 22C13.66 22 15 20.66 15 19C15 17.34 13.66 16 12 16Z" fill="#fff" opacity="0.6"/>
-          </svg>
+        <div class="w-8 h-8 rounded-lg bg-[#BFC3B1] flex items-center justify-center">
+          <img src="./assets/logo.png" alt="Logo" class="w-full h-full">
         </div>
         <p class="agni-footer-logo-name">AgniMukti</p>
         <p class="agni-footer-logo-tagline">Krematorium Digital</p>
